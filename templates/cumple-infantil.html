@@ -1,0 +1,528 @@
+<title>La Fiesta de Sofía</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;800&family=Nunito:wght@300;400;600&display=swap">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  /* ═══ PALETAS ═══ */
+  :root {
+    --bg:       #FFF9F0;
+    --bg-alt:   #FFF0D6;
+    --ink:      #2C1810;
+    --ink-soft: #5C3D2A;
+    --accent:   #F4622A;
+    --accent2:  #FFB830;
+    --pop:      #3BBFCE;
+    --line:     #FFD98A;
+    --white:    #FFFFFF;
+  }
+  [data-theme="unicornio"] {
+    --bg:       #FEF0FF;
+    --bg-alt:   #F8DAFF;
+    --ink:      #2A0A30;
+    --ink-soft: #5C3A6A;
+    --accent:   #C030D0;
+    --accent2:  #FF6FD8;
+    --pop:      #FFD700;
+    --line:     #E8AAFF;
+  }
+  [data-theme="dino"] {
+    --bg:       #F0FFF4;
+    --bg-alt:   #D6F5DF;
+    --ink:      #0A2010;
+    --ink-soft: #2A5030;
+    --accent:   #2EA04A;
+    --accent2:  #8BC34A;
+    --pop:      #FF6B35;
+    --line:     #A5D6B0;
+  }
+  [data-theme="bajo-el-mar"] {
+    --bg:       #F0F8FF;
+    --bg-alt:   #D6EDFF;
+    --ink:      #0A1A2C;
+    --ink-soft: #1A3A5C;
+    --accent:   #0B72B9;
+    --accent2:  #00C9C8;
+    --pop:      #FF6B9D;
+    --line:     #90CAF9;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Nunito', sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+    padding-inline: 16px;
+    transition: background 0.4s, color 0.4s;
+  }
+
+  /* ═══ BARRA TEMAS ═══ */
+  .theme-bar {
+    position: sticky; top: 0; z-index: 100;
+    display: flex; justify-content: center; align-items: center; gap: 10px;
+    padding: 10px 20px;
+    background: var(--bg);
+    border-bottom: 2px dashed var(--line);
+    transition: background 0.4s, border-color 0.4s;
+  }
+  .theme-label { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-soft); font-family: 'Nunito', sans-serif; }
+  .theme-dot { width: 22px; height: 22px; border-radius: 50%; border: 2px solid transparent; cursor: pointer; transition: transform 0.2s; }
+  .theme-dot:hover { transform: scale(1.25); }
+  .theme-dot.active { border-color: var(--ink); transform: scale(1.2); }
+  .theme-dot[data-t="clasico"]     { background: linear-gradient(135deg,#F4622A,#FFB830); }
+  .theme-dot[data-t="unicornio"]   { background: linear-gradient(135deg,#C030D0,#FF6FD8); }
+  .theme-dot[data-t="dino"]        { background: linear-gradient(135deg,#2EA04A,#8BC34A); }
+  .theme-dot[data-t="bajo-el-mar"] { background: linear-gradient(135deg,#0B72B9,#00C9C8); }
+
+  /* ═══ WRAPPER ═══ */
+  .card { max-width: 560px; margin-inline: auto; padding-block: 40px 80px; }
+
+  /* ═══ FADE IN ═══ */
+  .fade-in { opacity: 0; transform: translateY(18px); transition: opacity 0.6s, transform 0.6s; }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+  /* ═══ CONFETTI ORNAMENT ═══ */
+  .ornament {
+    display: flex; align-items: center; justify-content: center;
+    gap: 8px; margin-block: 32px;
+    opacity: 0; transform: scale(0.7);
+    transition: opacity 0.5s, transform 0.5s;
+  }
+  .ornament.visible { opacity: 1; transform: scale(1); }
+  .dot-row { display: flex; gap: 6px; }
+  .dot-row span {
+    width: 8px; height: 8px; border-radius: 50%; display: block;
+  }
+
+  /* ═══ HERO ═══ */
+  .hero { text-align: center; padding-block: 8px; }
+  .hero-badge {
+    display: inline-block;
+    background: var(--accent2);
+    color: var(--ink);
+    font-family: 'Baloo 2', cursive;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    padding: 4px 18px;
+    border-radius: 100px;
+    margin-bottom: 20px;
+    transition: background 0.4s, color 0.4s;
+  }
+  .kid-name {
+    font-family: 'Baloo 2', cursive;
+    font-size: clamp(52px, 14vw, 82px);
+    font-weight: 800;
+    line-height: 1.0;
+    color: var(--accent);
+    text-wrap: balance;
+    transition: color 0.4s;
+  }
+  .cumple-anni {
+    font-family: 'Baloo 2', cursive;
+    font-size: clamp(22px, 6vw, 34px);
+    font-weight: 600;
+    color: var(--pop);
+    margin-top: 6px;
+    transition: color 0.4s;
+  }
+  .hero-fecha {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--ink-soft);
+    margin-top: 14px;
+    transition: color 0.4s;
+  }
+  .hero-emoji { font-size: 40px; display: block; margin-bottom: 8px; }
+
+  /* ═══ COUNTDOWN ═══ */
+  .countdown-wrap { text-align: center; }
+  .countdown-label { font-family: 'Baloo 2', cursive; font-size: 14px; font-weight: 600; color: var(--accent); margin-bottom: 16px; transition: color 0.4s; }
+  .countdown { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+  .cd-unit {
+    background: var(--accent);
+    color: var(--white);
+    border-radius: 12px;
+    padding: 14px 16px;
+    min-width: 64px;
+    text-align: center;
+    transition: background 0.4s;
+  }
+  .cd-num { font-family: 'Baloo 2', cursive; font-size: 36px; font-weight: 800; line-height: 1; font-variant-numeric: tabular-nums; }
+  .cd-lbl { font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.85; margin-top: 2px; }
+  .gran-dia { font-family: 'Baloo 2', cursive; font-size: 28px; font-weight: 800; color: var(--accent); display: none; text-align: center; transition: color 0.4s; }
+
+  /* ═══ SECTION ═══ */
+  .section { text-align: center; }
+  .section-tag { font-family: 'Baloo 2', cursive; font-size: 12px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; transition: color 0.4s; }
+  .section-title { font-family: 'Baloo 2', cursive; font-size: 28px; font-weight: 700; color: var(--ink); margin-bottom: 8px; transition: color 0.4s; }
+  .section-detail { font-size: 15px; color: var(--ink-soft); line-height: 1.8; transition: color 0.4s; }
+  .section-detail strong { color: var(--ink); font-weight: 700; }
+
+  /* ═══ LUGAR ═══ */
+  .lugar-card {
+    background: var(--accent);
+    color: var(--white);
+    border-radius: 16px;
+    padding: 32px 24px;
+    text-align: center;
+    transition: background 0.4s;
+  }
+  .lugar-icon { font-size: 32px; display: block; margin-bottom: 12px; }
+  .lugar-hora { font-family: 'Baloo 2', cursive; font-size: 32px; font-weight: 800; line-height: 1; }
+  .lugar-nombre { font-family: 'Baloo 2', cursive; font-size: 20px; font-weight: 700; margin-top: 10px; }
+  .lugar-addr { font-size: 14px; opacity: 0.85; line-height: 1.8; margin-top: 6px; }
+  .map-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    margin-top: 16px;
+    padding: 10px 22px;
+    background: rgba(255,255,255,0.2);
+    border: 2px solid rgba(255,255,255,0.6);
+    border-radius: 100px;
+    color: var(--white);
+    font-family: 'Nunito', sans-serif;
+    font-size: 12px; font-weight: 700;
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    transition: background 0.2s;
+  }
+  .map-btn:hover { background: rgba(255,255,255,0.35); }
+  .map-btn svg { width: 13px; height: 13px; fill: currentColor; }
+
+  /* ═══ TEMÁTICA ═══ */
+  .tematica-wrap {
+    background: var(--bg-alt);
+    border-radius: 16px;
+    padding: 28px 24px;
+    text-align: center;
+    transition: background 0.4s;
+  }
+  .tematica-icon { font-size: 48px; display: block; margin-bottom: 8px; }
+
+  /* ═══ ALERGIAS / DATOS ═══ */
+  .info-chips { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 16px; }
+  .chip {
+    background: var(--bg-alt);
+    border-radius: 100px;
+    padding: 7px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink-soft);
+    border: 1.5px solid var(--line);
+    transition: background 0.4s, border-color 0.4s, color 0.4s;
+  }
+
+  /* ═══ DRIVE ═══ */
+  .drive-wrap {
+    background: var(--pop);
+    border-radius: 16px;
+    padding: 32px 24px;
+    text-align: center;
+    transition: background 0.4s;
+  }
+  .drive-icon { font-size: 40px; display: block; margin-bottom: 10px; }
+  .drive-title { font-family: 'Baloo 2', cursive; font-size: 22px; font-weight: 800; color: var(--white); margin-bottom: 8px; }
+  .drive-desc { font-size: 14px; color: rgba(255,255,255,0.9); line-height: 1.7; }
+  .drive-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    margin-top: 18px; padding: 12px 28px;
+    background: var(--white);
+    color: var(--ink);
+    border-radius: 100px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 13px; font-weight: 700;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+  .drive-btn:hover { opacity: 0.88; }
+  .drive-btn svg { width: 16px; height: 16px; fill: var(--accent); }
+
+  /* ═══ RSVP ═══ */
+  .rsvp-wrap {
+    background: var(--ink);
+    border-radius: 16px;
+    padding: 36px 28px;
+    text-align: center;
+    transition: background 0.4s;
+  }
+  .rsvp-wrap .section-tag { color: var(--accent2); }
+  .rsvp-wrap .section-title { color: var(--white); }
+  .rsvp-deadline { font-size: 14px; color: rgba(255,255,255,0.55); margin-bottom: 24px; }
+  .rsvp-deadline strong { color: rgba(255,255,255,0.85); }
+  .form-row { display: grid; grid-template-columns: 1fr; gap: 10px; margin-bottom: 10px; }
+  .form-row.two-col { grid-template-columns: 1fr 1fr; }
+  input, select, textarea {
+    width: 100%; background: rgba(255,255,255,0.08); border: 1.5px solid rgba(255,255,255,0.18);
+    color: var(--white); padding: 12px 14px;
+    font-family: 'Nunito', sans-serif; font-size: 14px; font-weight: 400;
+    outline: none; -webkit-appearance: none; appearance: none; border-radius: 10px;
+    transition: border-color 0.2s;
+  }
+  input::placeholder, textarea::placeholder { color: rgba(255,255,255,0.32); }
+  select option { background: #2C1810; color: #fff; }
+  input:focus, select:focus, textarea:focus { border-color: var(--accent2); }
+  textarea { resize: none; min-height: 70px; }
+  .btn-rsvp {
+    width: 100%; margin-top: 6px; padding: 14px;
+    background: var(--accent); color: var(--white); border: none; border-radius: 100px;
+    font-family: 'Baloo 2', cursive; font-size: 14px; font-weight: 700; letter-spacing: 0.04em;
+    cursor: pointer; transition: opacity 0.2s, background 0.4s;
+  }
+  .btn-rsvp:hover { opacity: 0.85; }
+  .rsvp-confirm { display: none; padding: 20px; background: rgba(255,255,255,0.06); border: 1.5px solid var(--accent2); border-radius: 12px; margin-top: 14px; }
+  .rsvp-confirm p { font-family: 'Baloo 2', cursive; font-size: 22px; font-weight: 700; color: var(--white); }
+  .rsvp-confirm span { font-size: 13px; color: rgba(255,255,255,0.55); display: block; margin-top: 6px; }
+
+  /* ═══ FOOTER ═══ */
+  .footer { text-align: center; padding-top: 16px; }
+  .footer-emoji { font-size: 32px; display: block; margin-bottom: 8px; }
+  .footer-msg { font-size: 14px; color: var(--ink-soft); line-height: 1.8; transition: color 0.4s; }
+  .made-by { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--line); margin-top: 32px; transition: color 0.4s; }
+  .made-by a { color: var(--accent); text-decoration: none; }
+
+  @media (max-width: 420px) {
+    .form-row.two-col { grid-template-columns: 1fr; }
+    .countdown { gap: 8px; }
+    .cd-unit { min-width: 56px; padding: 10px 12px; }
+    .cd-num { font-size: 28px; }
+  }
+</style>
+
+<!-- BARRA TEMAS -->
+<div class="theme-bar">
+  <span class="theme-label">tema</span>
+  <div class="theme-dot active" data-t="clasico" title="Fiesta"></div>
+  <div class="theme-dot" data-t="unicornio" title="Unicornio"></div>
+  <div class="theme-dot" data-t="dino" title="Dinosaurios"></div>
+  <div class="theme-dot" data-t="bajo-el-mar" title="Bajo el mar"></div>
+</div>
+
+<div class="card">
+
+  <!-- HERO -->
+  <div class="hero fade-in">
+    <span class="hero-emoji" id="hero-emoji">🎉</span>
+    <div class="hero-badge">¡Cumpleaños!</div>
+    <div class="kid-name">Sofía</div>
+    <div class="cumple-anni">cumple <strong>5 añitos</strong> 🎂</div>
+    <p class="hero-fecha">Sábado 22 de noviembre de 2026 · 16:00 hs</p>
+  </div>
+
+  <!-- ORNAMENT -->
+  <div class="ornament">
+    <div class="dot-row">
+      <span style="background:var(--accent)"></span>
+      <span style="background:var(--accent2)"></span>
+      <span style="background:var(--pop)"></span>
+      <span style="background:var(--accent)"></span>
+      <span style="background:var(--accent2)"></span>
+    </div>
+  </div>
+
+  <!-- COUNTDOWN -->
+  <div class="countdown-wrap fade-in">
+    <p class="countdown-label">¡Faltan para la fiesta!</p>
+    <div class="countdown" id="cd-display">
+      <div class="cd-unit"><div class="cd-num" id="cd-dias">--</div><div class="cd-lbl">días</div></div>
+      <div class="cd-unit"><div class="cd-num" id="cd-horas">--</div><div class="cd-lbl">horas</div></div>
+      <div class="cd-unit"><div class="cd-num" id="cd-min">--</div><div class="cd-lbl">min</div></div>
+      <div class="cd-unit"><div class="cd-num" id="cd-seg">--</div><div class="cd-lbl">seg</div></div>
+    </div>
+    <div class="gran-dia" id="gran-dia-msg">¡Hoy es la fiesta! 🎉🎈🎂</div>
+  </div>
+
+  <div class="ornament">
+    <div class="dot-row">
+      <span style="background:var(--pop)"></span>
+      <span style="background:var(--accent)"></span>
+      <span style="background:var(--accent2)"></span>
+      <span style="background:var(--pop)"></span>
+      <span style="background:var(--accent)"></span>
+    </div>
+  </div>
+
+  <!-- LUGAR -->
+  <div class="section fade-in" style="margin-bottom:16px;">
+    <p class="section-tag">¿dónde nos juntamos?</p>
+  </div>
+  <div class="lugar-card fade-in">
+    <span class="lugar-icon">🏠</span>
+    <div class="lugar-hora">16:00 hs</div>
+    <div class="lugar-nombre">Salón "El Globito"</div>
+    <div class="lugar-addr">
+      Calle Las Flores 456, Piso 1<br>
+      Villa General Belgrano, Córdoba
+    </div>
+    <a class="map-btn" href="https://maps.google.com/?q=Villa+General+Belgrano+Cordoba" target="_blank">
+      <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/></svg>
+      Ver en el mapa
+    </a>
+  </div>
+
+  <div class="ornament">
+    <div class="dot-row">
+      <span style="background:var(--accent2)"></span>
+      <span style="background:var(--pop)"></span>
+      <span style="background:var(--accent)"></span>
+      <span style="background:var(--accent2)"></span>
+      <span style="background:var(--pop)"></span>
+    </div>
+  </div>
+
+  <!-- TEMÁTICA -->
+  <div class="tematica-wrap fade-in">
+    <span class="tematica-icon" id="tematica-emoji">🎠</span>
+    <p class="section-tag">temática del festejo</p>
+    <h2 class="section-title" id="tematica-nombre">¡Princesas y Caballeros!</h2>
+    <p class="section-detail">Si querés venir disfrazado/a... ¡bienvenido/a! Pero no es obligatorio 😄</p>
+    <div class="info-chips">
+      <div class="chip">🎈 Inflables</div>
+      <div class="chip">🎨 Taller de arte</div>
+      <div class="chip">🍰 Torta sorpresa</div>
+      <div class="chip">🎁 Piñata</div>
+    </div>
+  </div>
+
+  <div class="ornament">
+    <div class="dot-row">
+      <span style="background:var(--accent)"></span>
+      <span style="background:var(--accent2)"></span>
+      <span style="background:var(--pop)"></span>
+      <span style="background:var(--accent)"></span>
+      <span style="background:var(--accent2)"></span>
+    </div>
+  </div>
+
+  <!-- DRIVE FOTOS -->
+  <div class="drive-wrap fade-in">
+    <span class="drive-icon">📸</span>
+    <div class="drive-title">¡Subí tus fotos!</div>
+    <p class="drive-desc">Cada momento vale un recuerdo.<br>Compartí tus fotos y videos del festejo en el álbum compartido.</p>
+    <a class="drive-btn" href="https://drive.google.com/drive/folders/LINK_AQUI" target="_blank">
+      <svg viewBox="0 0 24 24"><path d="M6.28 3L1 12.14l3.14 5.43L9.43 8.43zm3.15 5.43L4.14 17.57h9.71L9.43 8.43zM9.43 8.43L14.57 17.57H23l-5.28-9.14zm4.14 0L18.72 3H9.43z"/></svg>
+      Abrir álbum en Drive
+    </a>
+  </div>
+
+  <div class="ornament">
+    <div class="dot-row">
+      <span style="background:var(--pop)"></span>
+      <span style="background:var(--accent)"></span>
+      <span style="background:var(--accent2)"></span>
+      <span style="background:var(--pop)"></span>
+      <span style="background:var(--accent)"></span>
+    </div>
+  </div>
+
+  <!-- RSVP -->
+  <div class="rsvp-wrap fade-in">
+    <p class="section-tag">¡avisanos que venís!</p>
+    <h2 class="section-title">Confirmá tu asistencia</h2>
+    <p class="rsvp-deadline">Confirmá antes del <strong>15 de noviembre</strong> 🎈</p>
+    <form id="rsvpForm">
+      <div class="form-row">
+        <input type="text" id="nombre" placeholder="Nombre del invitado" required>
+      </div>
+      <div class="form-row two-col">
+        <select id="asistencia" required>
+          <option value="" disabled selected>¿Venís?</option>
+          <option value="si">¡Sí, vamos! 🎉</option>
+          <option value="no">No podemos 😔</option>
+        </select>
+        <input type="number" id="cantidad" placeholder="¿Cuántos?" min="1" max="10">
+      </div>
+      <div class="form-row">
+        <textarea id="alergias" placeholder="Alergias o restricciones alimentarias (opcional)"></textarea>
+      </div>
+      <button type="submit" class="btn-rsvp">¡Confirmar! 🎂</button>
+    </form>
+    <div class="rsvp-confirm" id="rsvpConfirm">
+      <p>¡Gracias! Sofía los espera 🎉</p>
+      <span>Nos vemos el 22 de noviembre — ¡va a ser increíble!</span>
+    </div>
+  </div>
+
+  <div class="ornament">
+    <div class="dot-row">
+      <span style="background:var(--accent2)"></span>
+      <span style="background:var(--pop)"></span>
+      <span style="background:var(--accent)"></span>
+      <span style="background:var(--accent2)"></span>
+      <span style="background:var(--pop)"></span>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer fade-in">
+    <span class="footer-emoji">🎈</span>
+    <p class="footer-msg">
+      Con todo el amor de la familia García.<br>
+      ¡Gracias por hacer especial el día de Sofía!
+    </p>
+    <p class="made-by" style="margin-top:36px;">Invitación digital por <a href="#">Sellomail · Presencia Digital</a></p>
+  </div>
+
+</div>
+
+<script>
+  // ── COUNTDOWN ──
+  const fiestaDate = new Date('2026-11-22T16:00:00');
+  function tick() {
+    const diff = fiestaDate - new Date();
+    if (diff <= 0) {
+      document.getElementById('cd-display').style.display = 'none';
+      document.querySelector('.countdown-label').style.display = 'none';
+      document.getElementById('gran-dia-msg').style.display = 'block';
+      return;
+    }
+    const d = Math.floor(diff/86400000), h = Math.floor((diff%86400000)/3600000),
+          m = Math.floor((diff%3600000)/60000), s = Math.floor((diff%60000)/1000);
+    document.getElementById('cd-dias').textContent  = String(d).padStart(2,'0');
+    document.getElementById('cd-horas').textContent = String(h).padStart(2,'0');
+    document.getElementById('cd-min').textContent   = String(m).padStart(2,'0');
+    document.getElementById('cd-seg').textContent   = String(s).padStart(2,'0');
+  }
+  tick(); setInterval(tick,1000);
+
+  // ── RSVP ──
+  document.getElementById('rsvpForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    if (!document.getElementById('nombre').value || !document.getElementById('asistencia').value) return;
+    this.style.display = 'none';
+    document.getElementById('rsvpConfirm').style.display = 'block';
+  });
+
+  // ── TEMA ──
+  const themes = {
+    clasico:     { emoji: '🎉', tIcon: '🎠', tNombre: '¡Princesas y Caballeros!' },
+    unicornio:   { emoji: '🦄', tIcon: '🦄', tNombre: '¡Unicornios y Arcoíris!' },
+    dino:        { emoji: '🦕', tIcon: '🦖', tNombre: '¡Mundo Dinosaurios!' },
+    'bajo-el-mar': { emoji: '🐠', tIcon: '🐙', tNombre: '¡Bajo el Mar!' },
+  };
+  document.querySelectorAll('.theme-dot').forEach(dot => {
+    dot.addEventListener('click', () => {
+      document.querySelectorAll('.theme-dot').forEach(d => d.classList.remove('active'));
+      dot.classList.add('active');
+      const t = dot.dataset.t;
+      if (t === 'clasico') document.documentElement.removeAttribute('data-theme');
+      else document.documentElement.setAttribute('data-theme', t);
+      if (themes[t]) {
+        document.getElementById('hero-emoji').textContent = themes[t].emoji;
+        document.getElementById('tematica-emoji').textContent = themes[t].tIcon;
+        document.getElementById('tematica-nombre').textContent = themes[t].tNombre;
+      }
+    });
+  });
+
+  // ── FADE IN ──
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(el => { if (el.isIntersecting) { el.target.classList.add('visible'); io.unobserve(el.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade-in,.ornament').forEach(el => io.observe(el));
+  setTimeout(() => {
+    document.querySelectorAll('.fade-in,.ornament').forEach(el => {
+      if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add('visible');
+    });
+  }, 80);
+</script>
