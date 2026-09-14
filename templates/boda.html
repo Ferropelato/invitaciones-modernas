@@ -1,0 +1,777 @@
+<title>Valentina & Rodrigo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  /* ═══ TEMAS ═══ */
+  :root {
+    --bg:        #FAF8F5;
+    --bg-alt:    #F2EDE5;
+    --ink:       #1A1714;
+    --ink-soft:  #4A4540;
+    --accent:    #8B6F52;
+    --accent-lt: #C4A882;
+    --muted:     #7A6E68;
+    --line:      #DDD7CE;
+    --white:     #FFFFFF;
+  }
+  [data-theme="rosa"] {
+    --bg:        #FDF5F3;
+    --bg-alt:    #F5E8E5;
+    --ink:       #1A1214;
+    --ink-soft:  #4A3840;
+    --accent:    #B87070;
+    --accent-lt: #D4A0A0;
+    --muted:     #7A5F62;
+    --line:      #E0CECE;
+  }
+  [data-theme="salvia"] {
+    --bg:        #F5F8F4;
+    --bg-alt:    #E8EFE6;
+    --ink:       #141A15;
+    --ink-soft:  #3C4A3E;
+    --accent:    #5F7A65;
+    --accent-lt: #8FAF95;
+    --muted:     #5A6E5C;
+    --line:      #CCDACF;
+  }
+  [data-theme="noche"] {
+    --bg:        #131110;
+    --bg-alt:    #1E1B19;
+    --ink:       #F2EFE8;
+    --ink-soft:  #C8BFB5;
+    --accent:    #C9A882;
+    --accent-lt: #E0C8A8;
+    --muted:     #9A8D82;
+    --line:      #2E2A27;
+    --white:     #F2EFE8;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    line-height: 1.6;
+    padding-inline: 16px;
+    transition: background 0.4s, color 0.4s;
+  }
+
+  /* ═══ SELECTOR DE TEMA (flotante arriba) ═══ */
+  .theme-bar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+    backdrop-filter: blur(8px);
+    transition: background 0.4s, border-color 0.4s;
+  }
+  .theme-label {
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-right: 4px;
+  }
+  .theme-dot {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: transform 0.2s, border-color 0.2s;
+    position: relative;
+  }
+  .theme-dot:hover { transform: scale(1.2); }
+  .theme-dot.active { border-color: var(--ink); transform: scale(1.15); }
+  .theme-dot[data-t="clasico"] { background: linear-gradient(135deg, #8B6F52, #FAF8F5); }
+  .theme-dot[data-t="rosa"]    { background: linear-gradient(135deg, #B87070, #FDF5F3); }
+  .theme-dot[data-t="salvia"]  { background: linear-gradient(135deg, #5F7A65, #F5F8F4); }
+  .theme-dot[data-t="noche"]   { background: linear-gradient(135deg, #C9A882, #131110); }
+  .theme-dot[title]::after {
+    content: attr(title);
+    position: absolute;
+    bottom: -24px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 8px;
+    white-space: nowrap;
+    color: var(--muted);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s;
+  }
+  .theme-dot:hover::after { opacity: 1; }
+
+  /* ═══ WRAPPER ═══ */
+  .card {
+    max-width: 560px;
+    margin-inline: auto;
+    padding-block: 56px 80px;
+  }
+
+  /* ═══ ORNAMENT ═══ */
+  .ornament {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-block: 36px;
+    opacity: 0;
+    transform: scaleX(0.6);
+    transition: opacity 0.6s, transform 0.6s;
+  }
+  .ornament.visible { opacity: 1; transform: scaleX(1); }
+  .ornament::before, .ornament::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--line);
+    transition: background 0.4s;
+  }
+  .ornament-glyph {
+    font-size: 14px;
+    color: var(--accent);
+    transition: color 0.4s;
+  }
+
+  /* ═══ FADE-IN SECTIONS ═══ */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ═══ HERO ═══ */
+  .hero { text-align: center; padding-block: 8px; }
+  .eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 28px;
+    transition: color 0.4s;
+  }
+  .names {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(54px, 14vw, 84px);
+    font-weight: 300;
+    line-height: 1.05;
+    color: var(--ink);
+    text-wrap: balance;
+    transition: color 0.4s;
+  }
+  .names em { font-style: italic; color: var(--accent); transition: color 0.4s; }
+  .ampersand {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(30px, 8vw, 46px);
+    font-style: italic;
+    font-weight: 300;
+    color: var(--muted);
+    display: block;
+    line-height: 1.2;
+    transition: color 0.4s;
+  }
+  .wedding-date {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 19px;
+    font-style: italic;
+    color: var(--ink-soft);
+    margin-top: 20px;
+    transition: color 0.4s;
+  }
+
+  /* ═══ COUNTDOWN ═══ */
+  .countdown-wrap { text-align: center; }
+  .countdown-label {
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 20px;
+    transition: color 0.4s;
+  }
+  .countdown {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+  }
+  .cd-unit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-inline: clamp(12px, 4vw, 28px);
+    border-right: 1px solid var(--line);
+    transition: border-color 0.4s;
+  }
+  .cd-unit:last-child { border-right: none; }
+  .cd-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 9vw, 52px);
+    font-weight: 300;
+    line-height: 1;
+    color: var(--ink);
+    font-variant-numeric: tabular-nums;
+    min-width: 2ch;
+    transition: color 0.4s;
+  }
+  .cd-lbl {
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 6px;
+    transition: color 0.4s;
+  }
+  .gran-dia {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-style: italic;
+    color: var(--accent);
+    display: none;
+    transition: color 0.4s;
+  }
+
+  /* ═══ SECCIONES ═══ */
+  .section { text-align: center; }
+  .section-tag {
+    font-size: 10px;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+    transition: color 0.4s;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 30px;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 10px;
+    transition: color 0.4s;
+  }
+  .section-detail {
+    font-size: 14.5px;
+    color: var(--ink-soft);
+    line-height: 1.9;
+    transition: color 0.4s;
+  }
+  .section-detail strong { color: var(--ink); font-weight: 500; transition: color 0.4s; }
+
+  /* ═══ EVENTOS ═══ */
+  .eventos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    transition: background 0.4s, border-color 0.4s;
+  }
+  .evento {
+    background: var(--bg);
+    padding: 32px 20px;
+    text-align: center;
+    transition: background 0.4s;
+  }
+  .evento-icon { font-size: 22px; margin-bottom: 14px; display: block; }
+  .evento-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-style: italic;
+    color: var(--ink);
+    margin-bottom: 10px;
+    transition: color 0.4s;
+  }
+  .evento-info {
+    font-size: 13px;
+    color: var(--ink-soft);
+    line-height: 2;
+    transition: color 0.4s;
+  }
+  .evento-info strong {
+    display: block;
+    color: var(--ink);
+    font-weight: 500;
+    font-size: 14px;
+    transition: color 0.4s;
+  }
+  .evento-addr {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-top: 6px;
+    transition: color 0.4s;
+  }
+  .map-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 14px;
+    padding: 8px 18px;
+    border: 1px solid var(--accent);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s, border-color 0.4s;
+  }
+  .map-btn:hover { background: var(--accent); color: var(--white); }
+  .map-btn svg { width: 11px; height: 11px; fill: currentColor; }
+
+  /* ═══ DRIVE / FOTOS ═══ */
+  .drive-wrap {
+    background: var(--bg-alt);
+    border: 1px solid var(--line);
+    padding: 36px 28px;
+    text-align: center;
+    transition: background 0.4s, border-color 0.4s;
+  }
+  .drive-icon {
+    font-size: 36px;
+    display: block;
+    margin-bottom: 12px;
+  }
+  .drive-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 20px;
+    padding: 13px 28px;
+    background: var(--accent);
+    color: var(--white);
+    font-family: 'Jost', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.2s, background 0.4s;
+  }
+  .drive-btn:hover { opacity: 0.85; }
+  .drive-btn svg { width: 14px; height: 14px; fill: currentColor; flex-shrink: 0; }
+
+  /* ═══ DRESSCODE ═══ */
+  .dresscode-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 24px;
+  }
+  .dc-item {
+    background: var(--bg-alt);
+    padding: 24px 16px;
+    text-align: center;
+    transition: background 0.4s;
+  }
+  .dc-swatch {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    margin-inline: auto;
+    margin-bottom: 12px;
+    border: 1px solid var(--line);
+    transition: border-color 0.4s;
+  }
+  .dc-label {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    transition: color 0.4s;
+  }
+  .dc-desc {
+    font-size: 14px;
+    color: var(--ink);
+    margin-top: 5px;
+    transition: color 0.4s;
+  }
+
+  /* ═══ RSVP ═══ */
+  .rsvp-wrap {
+    background: var(--ink);
+    padding: 44px 32px;
+    text-align: center;
+    transition: background 0.4s;
+  }
+  .rsvp-wrap .section-tag { color: var(--accent-lt); }
+  .rsvp-wrap .section-title { color: var(--white); }
+  .rsvp-deadline { font-size: 13px; color: rgba(255,255,255,0.55); margin-bottom: 28px; }
+  .rsvp-deadline strong { color: rgba(255,255,255,0.85); }
+  .form-row { display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 12px; }
+  .form-row.two-col { grid-template-columns: 1fr 1fr; }
+  input, select {
+    width: 100%;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: var(--white);
+    padding: 13px 14px;
+    font-family: 'Jost', sans-serif;
+    font-size: 13px;
+    font-weight: 300;
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+    border-radius: 0;
+    transition: border-color 0.2s;
+  }
+  input::placeholder { color: rgba(255,255,255,0.32); }
+  select option { background: #1A1714; color: #fff; }
+  input:focus, select:focus { border-color: var(--accent-lt); }
+  .btn-rsvp {
+    width: 100%;
+    margin-top: 8px;
+    padding: 15px;
+    background: var(--accent);
+    color: var(--white);
+    border: none;
+    font-family: 'Jost', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 0;
+    transition: opacity 0.2s, background 0.4s;
+  }
+  .btn-rsvp:hover { opacity: 0.85; }
+  .rsvp-confirm {
+    display: none;
+    padding: 24px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--accent-lt);
+    margin-top: 16px;
+  }
+  .rsvp-confirm p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-style: italic;
+    color: var(--white);
+  }
+  .rsvp-confirm span {
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+    display: block;
+    margin-top: 8px;
+  }
+
+  /* ═══ FOOTER ═══ */
+  .footer { text-align: center; padding-top: 16px; }
+  .footer-names {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px;
+    font-style: italic;
+    color: var(--muted);
+    transition: color 0.4s;
+  }
+  .footer-msg {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 8px;
+    line-height: 1.8;
+    transition: color 0.4s;
+  }
+  .made-by {
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--line);
+    margin-top: 36px;
+    transition: color 0.4s;
+  }
+  .made-by a { color: var(--accent); text-decoration: none; transition: color 0.4s; }
+
+  @media (max-width: 420px) {
+    .eventos { grid-template-columns: 1fr; }
+    .form-row.two-col { grid-template-columns: 1fr; }
+    .cd-num { font-size: 32px; }
+  }
+</style>
+
+<!-- BARRA DE TEMAS -->
+<div class="theme-bar">
+  <span class="theme-label">estilo</span>
+  <div class="theme-dot active" data-t="clasico" title="Clásico"></div>
+  <div class="theme-dot" data-t="rosa" title="Romántico"></div>
+  <div class="theme-dot" data-t="salvia" title="Jardín"></div>
+  <div class="theme-dot" data-t="noche" title="Noche"></div>
+</div>
+
+<div class="card">
+
+  <!-- HERO -->
+  <div class="hero fade-in">
+    <p class="eyebrow">nos casamos</p>
+    <div class="names">
+      <em>Valentina</em>
+      <span class="ampersand">&amp;</span>
+      <em>Rodrigo</em>
+    </div>
+    <p class="wedding-date">Sábado, 14 de junio de 2027 · Villa General Belgrano, Córdoba</p>
+  </div>
+
+  <div class="ornament"><span class="ornament-glyph">✦</span></div>
+
+  <!-- COUNTDOWN -->
+  <div class="countdown-wrap fade-in">
+    <p class="countdown-label" id="cd-pre-label">faltan</p>
+    <div class="countdown" id="cd-display">
+      <div class="cd-unit">
+        <span class="cd-num" id="cd-dias">--</span>
+        <span class="cd-lbl">días</span>
+      </div>
+      <div class="cd-unit">
+        <span class="cd-num" id="cd-horas">--</span>
+        <span class="cd-lbl">horas</span>
+      </div>
+      <div class="cd-unit">
+        <span class="cd-num" id="cd-min">--</span>
+        <span class="cd-lbl">min</span>
+      </div>
+      <div class="cd-unit">
+        <span class="cd-num" id="cd-seg">--</span>
+        <span class="cd-lbl">seg</span>
+      </div>
+    </div>
+    <p class="gran-dia" id="gran-dia-msg">¡Hoy es el gran día! 🥂</p>
+  </div>
+
+  <div class="ornament"><span class="ornament-glyph">✦</span></div>
+
+  <!-- HISTORIA -->
+  <div class="section fade-in">
+    <p class="section-tag">nuestra historia</p>
+    <h2 class="section-title">Nos conocimos en 2018</h2>
+    <p class="section-detail">
+      Lo que empezó como una tarde de mate en la plaza terminó siendo<br>
+      siete años de aventuras, risas y proyectos compartidos.<br>
+      Hoy queremos que estés presente en el día más importante de nuestra vida.
+    </p>
+  </div>
+
+  <div class="ornament"><span class="ornament-glyph">✦</span></div>
+
+  <!-- EVENTOS -->
+  <div class="section fade-in">
+    <p class="section-tag">el gran día</p>
+  </div>
+  <div class="eventos fade-in">
+    <div class="evento">
+      <span class="evento-icon">⛪</span>
+      <p class="evento-name">Ceremonia</p>
+      <p class="evento-info">
+        <strong>17:00 hs</strong>
+      </p>
+      <p class="evento-addr">
+        Iglesia Nuestra Señora del Rosario<br>
+        Av. San Martín 245<br>
+        Villa General Belgrano, Córdoba
+      </p>
+      <a class="map-btn" href="https://maps.google.com/?q=Iglesia+Nuestra+Señora+del+Rosario+Villa+General+Belgrano" target="_blank">
+        <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/></svg>
+        Ver en el mapa
+      </a>
+    </div>
+    <div class="evento">
+      <span class="evento-icon">🥂</span>
+      <p class="evento-name">Recepción</p>
+      <p class="evento-info">
+        <strong>20:00 hs</strong>
+      </p>
+      <p class="evento-addr">
+        Estancia Los Ombúes<br>
+        Ruta 5 km 94<br>
+        Villa General Belgrano, Córdoba
+      </p>
+      <a class="map-btn" href="https://maps.google.com/?q=Estancia+Los+Ombues+Ruta+5+km+94+Villa+General+Belgrano" target="_blank">
+        <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/></svg>
+        Ver en el mapa
+      </a>
+    </div>
+  </div>
+
+  <div class="ornament"><span class="ornament-glyph">✦</span></div>
+
+  <!-- DRESSCODE -->
+  <div class="section fade-in">
+    <p class="section-tag">vestimenta</p>
+    <h2 class="section-title">Formal elegante</h2>
+    <p class="section-detail">Queremos que estés cómodo/a y que la noche sea memorable.</p>
+    <div class="dresscode-grid">
+      <div class="dc-item">
+        <div class="dc-swatch" style="background:#1A1714;"></div>
+        <p class="dc-label">Ellos</p>
+        <p class="dc-desc">Traje oscuro<br>o smoking</p>
+      </div>
+      <div class="dc-item">
+        <div class="dc-swatch" style="background:linear-gradient(135deg,#D4B8A0,#C9A882);"></div>
+        <p class="dc-label">Ellas</p>
+        <p class="dc-desc">Vestido largo<br>tonos nude o dorado</p>
+      </div>
+    </div>
+    <p class="section-detail" style="margin-top:16px;font-size:13px;">
+      Por favor, <strong>evitá el blanco</strong>. ¡Gracias!
+    </p>
+  </div>
+
+  <div class="ornament"><span class="ornament-glyph">✦</span></div>
+
+  <!-- REGALO -->
+  <div class="section fade-in">
+    <p class="section-tag">mesa de regalos</p>
+    <h2 class="section-title">Tu presencia es el mejor regalo</h2>
+    <p class="section-detail">
+      Si querés contribuir a nuestra luna de miel o nuestro nuevo hogar,<br>
+      podés hacerlo vi�a transferencia:
+    </p>
+    <p class="section-detail" style="margin-top:18px;">
+      <strong>CBU:</strong> 0000000000000000000000<br>
+      <strong>Alias:</strong> valentina.rodrigo.boda<br>
+      <strong>Titular:</strong> Valentina García
+    </p>
+  </div>
+
+  <div class="ornament"><span class="ornament-glyph">✦</span></div>
+
+  <!-- FOTOS COMPARTIDAS -->
+  <div class="drive-wrap fade-in">
+    <span class="drive-icon">📸</span>
+    <p class="section-tag">álbum compartido</p>
+    <h2 class="section-title">Subí tus fotos</h2>
+    <p class="section-detail">
+      Queremos que cada momento quede guardado.<br>
+      Usá el álbum compartido para subir fotos y videos del día — antes, durante y después.
+    </p>
+    <a class="drive-btn" href="https://drive.google.com/drive/folders/LINK_AQUI" target="_blank">
+      <svg viewBox="0 0 24 24"><path d="M6.28 3L1 12.14l3.14 5.43L9.43 8.43zm3.15 5.43L4.14 17.57h9.71L9.43 8.43zM9.43 8.43L14.57 17.57H23l-5.28-9.14zm4.14 0L18.72 3H9.43z"/></svg>
+      Abrir álbum en Drive
+    </a>
+    <p class="section-detail" style="font-size:12px;margin-top:14px;opacity:0.7;">
+      El link lleva a una carpeta compartida — no hace falta cuenta de Google para subir fotos.
+    </p>
+  </div>
+
+  <div class="ornament"><span class="ornament-glyph">✦</span></div>
+
+  <!-- RSVP -->
+  <div class="rsvp-wrap fade-in">
+    <p class="section-tag">confirmación</p>
+    <h2 class="section-title">¿Nos acompañás?</h2>
+    <p class="rsvp-deadline">Confirmá tu asistencia antes del <strong>31 de mayo de 2027</strong></p>
+    <form id="rsvpForm">
+      <div class="form-row">
+        <input type="text" id="nombre" placeholder="Tu nombre completo" required>
+      </div>
+      <div class="form-row two-col">
+        <select id="asistencia" required>
+          <option value="" disabled selected>¿Asistís?</option>
+          <option value="si">Sí, con gusto 🥂</option>
+          <option value="no">No puedo ir 😔</option>
+        </select>
+        <select id="menu">
+          <option value="" disabled selected>Menú</option>
+          <option value="carne">Carne</option>
+          <option value="veggie">Vegetariano</option>
+          <option value="vegan">Vegano</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <input type="text" id="mensaje" placeholder="Un mensaje para los novios (opcional)">
+      </div>
+      <button type="submit" class="btn-rsvp">Confirmar asistencia</button>
+    </form>
+    <div class="rsvp-confirm" id="rsvpConfirm">
+      <p>¡Gracias! Ya tenemos tu confirmación 🥂</p>
+      <span>Nos vemos el 14 de junio de 2027 — va a ser una noche increíble.</span>
+    </div>
+  </div>
+
+  <div class="ornament"><span class="ornament-glyph">✦</span></div>
+
+  <!-- FOOTER -->
+  <div class="footer fade-in">
+    <p class="footer-names">Valentina & Rodrigo</p>
+    <p class="footer-msg">
+      Con amor desde Villa General Belgrano, Córdoba.<br>
+      ¡Gracias por ser parte de nuestra historia!
+    </p>
+    <p class="made-by" style="margin-top:40px;">Invitación digital por <a href="#">Sellomail · Presencia Digital</a></p>
+  </div>
+
+</div>
+
+<script>
+  // ── COUNTDOWN ──
+  const bodaDate = new Date('2027-06-14T17:00:00');
+  function tick() {
+    const diff = bodaDate - new Date();
+    if (diff <= 0) {
+      document.getElementById('cd-pre-label').style.display = 'none';
+      document.getElementById('cd-display').style.display = 'none';
+      document.getElementById('gran-dia-msg').style.display = 'block';
+      return;
+    }
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor((diff % 86400000) / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
+    document.getElementById('cd-dias').textContent  = String(d).padStart(2,'0');
+    document.getElementById('cd-horas').textContent = String(h).padStart(2,'0');
+    document.getElementById('cd-min').textContent   = String(m).padStart(2,'0');
+    document.getElementById('cd-seg').textContent   = String(s).padStart(2,'0');
+  }
+  tick();
+  setInterval(tick, 1000);
+
+  // ── RSVP ──
+  document.getElementById('rsvpForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    if (!document.getElementById('nombre').value || !document.getElementById('asistencia').value) return;
+    this.style.display = 'none';
+    document.getElementById('rsvpConfirm').style.display = 'block';
+  });
+
+  // ── TEMA ──
+  const root = document.documentElement;
+  document.querySelectorAll('.theme-dot').forEach(dot => {
+    dot.addEventListener('click', () => {
+      document.querySelectorAll('.theme-dot').forEach(d => d.classList.remove('active'));
+      dot.classList.add('active');
+      const t = dot.dataset.t;
+      if (t === 'clasico') {
+        root.removeAttribute('data-theme');
+      } else {
+        root.setAttribute('data-theme', t);
+      }
+    });
+  });
+
+  // ── FADE IN (IntersectionObserver) ──
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(el => {
+      if (el.isIntersecting) { el.target.classList.add('visible'); io.unobserve(el.target); }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.fade-in, .ornament').forEach(el => io.observe(el));
+  // Forzar visibles que ya están en viewport al cargar
+  setTimeout(() => {
+    document.querySelectorAll('.fade-in, .ornament').forEach(el => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight) el.classList.add('visible');
+    });
+  }, 100);
+</script>
