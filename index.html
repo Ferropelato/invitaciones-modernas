@@ -1,0 +1,830 @@
+<title>Invitaciones Digitales</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap">
+
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ink:      #0D0B14;
+  --ink2:     #2A2440;
+  --light:    #F7F4EF;
+  --light-alt:#EDE8F5;
+  --violet:   #6B35D9;
+  --violet-lt: 8B5CF6;
+  --gold:     #C9A060;
+  --muted:    #6E6880;
+  --line:     #E0DAF0;
+  --white:    #FFFFFF;
+}
+
+body {
+  background: var(--light);
+  color: var(--ink2);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ══════════════════════
+   NAV
+══════════════════════ */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 0 clamp(20px,5vw,60px);
+  height: 60px;
+  background: rgba(13,11,20,0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.nav-logo {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 17px;
+  color: var(--white);
+  letter-spacing: -0.01em;
+  text-decoration: none;
+}
+.nav-logo span { color: var(--violet-lt); }
+.nav-cta {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 8px 18px;
+  background: var(--violet);
+  color: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px; font-weight: 500;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  border-radius: 100px;
+  transition: opacity 0.2s;
+}
+.nav-cta:hover { opacity: 0.88; }
+.nav-cta svg { width: 14px; height: 14px; fill: currentColor; }
+
+/* ══════════════════════
+   HERO
+══════════════════════ */
+.hero {
+  background: var(--ink);
+  padding: 140px clamp(20px,5vw,60px) 100px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; top: -200px; left: 50%; transform: translateX(-50%);
+  width: 700px; height: 700px;
+  background: radial-gradient(circle, rgba(107,53,217,0.22) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-eyebrow {
+  display: inline-block;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px; font-weight: 500;
+  letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--violet-lt);
+  border: 1px solid rgba(139,92,246,0.4);
+  padding: 5px 16px; border-radius: 100px;
+  margin-bottom: 28px;
+}
+.hero-title {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: clamp(38px, 8vw, 72px);
+  line-height: 1.05;
+  color: var(--white);
+  text-wrap: balance;
+  max-width: 780px;
+  margin-inline: auto;
+}
+.hero-title em {
+  font-style: italic;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  color: var(--gold);
+}
+.hero-sub {
+  font-size: clamp(15px,2.5vw,18px);
+  color: rgba(255,255,255,0.55);
+  max-width: 520px;
+  margin: 20px auto 0;
+  line-height: 1.75;
+}
+.hero-actions {
+  display: flex; justify-content: center; align-items: center;
+  gap: 14px; flex-wrap: wrap;
+  margin-top: 40px;
+}
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 14px 30px;
+  background: var(--violet);
+  color: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px; font-weight: 500;
+  text-decoration: none; border-radius: 100px;
+  transition: opacity 0.2s, transform 0.2s;
+}
+.btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+.btn-primary svg { width: 16px; height: 16px; fill: currentColor; }
+.btn-secondary {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 14px 24px;
+  border: 1px solid rgba(255,255,255,0.2);
+  color: rgba(255,255,255,0.7);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px; font-weight: 400;
+  text-decoration: none; border-radius: 100px;
+  transition: border-color 0.2s, color 0.2s;
+}
+.btn-secondary:hover { border-color: rgba(255,255,255,0.5); color: var(--white); }
+
+/* MINI PREVIEW CARDS EN HERO */
+.hero-previews {
+  display: flex; justify-content: center; gap: 12px;
+  margin-top: 60px;
+  flex-wrap: wrap;
+}
+.mini-card {
+  width: 110px; height: 160px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.1);
+  position: relative;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+.mini-card:hover { transform: translateY(-6px) scale(1.03); box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
+.mini-card a { position: absolute; inset: 0; z-index: 2; }
+/* Boda */
+.mc-boda { background: #FAF8F5; }
+.mc-boda .mc-content { padding: 14px 10px; text-align: center; }
+.mc-boda .mc-h { font-family: Georgia,serif; font-size: 11px; font-style: italic; color: #1A1714; line-height: 1.3; }
+.mc-boda .mc-acc { width: 20px; height: 1px; background: #8B6F52; margin: 6px auto; }
+.mc-boda .mc-sub { font-size: 7px; letter-spacing: 0.15em; text-transform: uppercase; color: #8B6F52; }
+.mc-boda .mc-date { font-size: 7px; color: #9E9189; margin-top: 4px; }
+/* Cumple */
+.mc-cumple { background: #FFF9F0; }
+.mc-cumple .mc-content { padding: 12px 8px; text-align: center; }
+.mc-cumple .mc-emoji { font-size: 22px; display: block; }
+.mc-cumple .mc-h { font-family: Georgia,serif; font-size: 14px; font-weight: 700; color: #F4622A; line-height: 1.1; }
+.mc-cumple .mc-sub { font-size: 7px; color: #5C3D2A; margin-top: 4px; }
+.mc-cumple .mc-dots { display: flex; gap: 4px; justify-content: center; margin-top: 8px; }
+.mc-cumple .mc-dots span { width: 5px; height: 5px; border-radius: 50%; }
+/* Aniversario */
+.mc-anni { background: #FAF7F2; }
+.mc-anni .mc-content { padding: 14px 10px; text-align: center; }
+.mc-anni .mc-big { font-family: Georgia,serif; font-size: 26px; font-weight: 700; color: #9B2335; line-height: 1; }
+.mc-anni .mc-sub { font-size: 8px; font-style: italic; color: #4E3C2E; margin-top: 2px; }
+.mc-anni .mc-names { font-family: Georgia,serif; font-size: 9px; font-style: italic; color: #1C1410; margin-top: 8px; }
+.mc-anni .mc-heart { color: #9B2335; font-size: 10px; display: block; margin-top: 4px; }
+/* Joda */
+.mc-joda { background: #0E0C14; }
+.mc-joda .mc-content { padding: 14px 8px; text-align: center; }
+.mc-joda .mc-h { font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 800; color: #F2EEFF; line-height: 1.2; }
+.mc-joda .mc-h span { color: #C040FF; }
+.mc-joda .mc-sub { font-size: 8px; font-weight: 700; color: #FF4080; margin-top: 4px; }
+.mc-joda .mc-line { height: 2px; background: #C040FF; box-shadow: 0 0 6px #C040FF; margin-top: 10px; }
+.mc-joda .mc-info { font-size: 7px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(242,238,255,0.4); margin-top: 6px; }
+
+/* LABELS SOBRE LAS MINI CARDS */
+.mini-card-label {
+  position: absolute; bottom: 8px; left: 0; right: 0;
+  text-align: center;
+  font-size: 9px; font-weight: 500;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* ══════════════════════
+   FEATURES BAR
+══════════════════════ */
+.features-bar {
+  background: var(--violet);
+  padding: 18px clamp(20px,5vw,60px);
+  display: flex; justify-content: center; align-items: center;
+  flex-wrap: wrap; gap: 10px 32px;
+}
+.feat-item {
+  display: flex; align-items: center; gap: 7px;
+  font-size: 13px; font-weight: 400;
+  color: rgba(255,255,255,0.9);
+}
+.feat-item svg { width: 14px; height: 14px; fill: currentColor; flex-shrink: 0; opacity: 0.8; }
+
+/* ══════════════════════
+   SECTION BASE
+══════════════════════ */
+section { padding: 80px clamp(20px,5vw,60px); }
+.section-inner { max-width: 960px; margin-inline: auto; }
+.eyebrow-tag {
+  font-size: 10px; font-weight: 500;
+  letter-spacing: 0.26em; text-transform: uppercase;
+  color: var(--violet); margin-bottom: 14px;
+}
+.section-title {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(26px,5vw,40px); font-weight: 800;
+  color: var(--ink); line-height: 1.15;
+  text-wrap: balance;
+}
+.section-sub {
+  font-size: 16px; color: var(--muted);
+  line-height: 1.8; max-width: 520px;
+  margin-top: 12px;
+}
+
+/* ══════════════════════
+   TEMPLATES GRID
+══════════════════════ */
+#templates { background: var(--light-alt); }
+.templates-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin-top: 48px;
+}
+.tpl-card {
+  background: var(--white);
+  border: 1px solid var(--line);
+  overflow: hidden;
+  transition: transform 0.25s, box-shadow 0.25s;
+  display: flex; flex-direction: column;
+}
+.tpl-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(13,11,20,0.12); }
+.tpl-preview {
+  height: 200px;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center;
+  padding: 20px 16px;
+  position: relative;
+  overflow: hidden;
+}
+/* Boda preview */
+.prev-boda { background: #FAF8F5; }
+.prev-boda .pv-h { font-family: Georgia,serif; font-size: 22px; font-style: italic; color: #1A1714; }
+.prev-boda .pv-amp { font-family: Georgia,serif; font-size: 14px; font-style: italic; color: #9E9189; margin: 2px 0; }
+.prev-boda .pv-rule { width: 40px; height: 1px; background: #8B6F52; margin: 8px auto; }
+.prev-boda .pv-tag { font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase; color: #8B6F52; }
+/* Cumple preview */
+.prev-cumple { background: #FFF9F0; }
+.prev-cumple .pv-emoji { font-size: 32px; display: block; margin-bottom: 6px; }
+.prev-cumple .pv-h { font-family: Georgia,serif; font-size: 24px; font-weight: 700; color: #F4622A; }
+.prev-cumple .pv-sub { font-size: 12px; font-weight: 600; color: #FFB830; margin-top: 4px; }
+.prev-cumple .pv-dots { display: flex; gap: 5px; justify-content: center; margin-top: 10px; }
+.prev-cumple .pv-dots span { width: 7px; height: 7px; border-radius: 50%; }
+/* Aniversario preview */
+.prev-anni { background: #FAF7F2; }
+.prev-anni .pv-big { font-family: Georgia,serif; font-size: 48px; font-weight: 700; color: #9B2335; line-height: 1; }
+.prev-anni .pv-sub { font-size: 10px; font-style: italic; color: #4E3C2E; margin-top: 2px; }
+.prev-anni .pv-names { font-family: Georgia,serif; font-size: 14px; font-style: italic; color: #1C1410; margin-top: 10px; }
+/* Joda preview */
+.prev-joda { background: #0E0C14; }
+.prev-joda .pv-h { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; color: #F2EEFF; line-height: 1.1; }
+.prev-joda .pv-h span { color: #C040FF; }
+.prev-joda .pv-sub { font-size: 11px; font-weight: 700; color: #FF4080; margin-top: 5px; }
+.prev-joda .pv-rule { height: 2px; background: #C040FF; box-shadow: 0 0 8px #C040FF; margin: 12px 0 8px; width: 100%; }
+.prev-joda .pv-time { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(242,238,255,0.4); }
+
+.tpl-info { padding: 20px; flex: 1; display: flex; flex-direction: column; }
+.tpl-name { font-family: 'Syne', sans-serif; font-size: 17px; font-weight: 800; color: var(--ink); }
+.tpl-desc { font-size: 13px; color: var(--muted); margin-top: 5px; line-height: 1.6; flex: 1; }
+.tpl-palettes { display: flex; gap: 5px; margin-top: 12px; }
+.tpl-dot { width: 14px; height: 14px; border-radius: 50%; border: 1.5px solid rgba(0,0,0,0.1); }
+.tpl-link {
+  display: inline-flex; align-items: center; gap: 5px;
+  margin-top: 14px;
+  font-size: 11px; font-weight: 500;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--violet); text-decoration: none;
+  transition: gap 0.2s;
+}
+.tpl-link:hover { gap: 8px; }
+.tpl-link svg { width: 12px; height: 12px; fill: currentColor; }
+
+/* ══════════════════════
+   QUÉ INCLUYE
+══════════════════════ */
+.includes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  margin-top: 44px;
+}
+.inc-item {
+  background: var(--white);
+  border: 1px solid var(--line);
+  padding: 24px 20px;
+}
+.inc-icon { font-size: 24px; display: block; margin-bottom: 12px; }
+.inc-title { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700; color: var(--ink); margin-bottom: 5px; }
+.inc-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+/* ══════════════════════
+   CÓMO FUNCIONA
+══════════════════════ */
+#como { background: var(--ink); }
+#como .section-title { color: var(--white); }
+#como .section-sub { color: rgba(255,255,255,0.5); }
+#como .eyebrow-tag { color: var(--violet-lt); }
+.steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  margin-top: 52px;
+  position: relative;
+}
+.steps::before {
+  content: '';
+  position: absolute;
+  top: 20px; left: calc(33.33% - 0px); right: calc(33.33% - 0px);
+  height: 1px;
+  background: linear-gradient(90deg, var(--violet) 0%, rgba(107,53,217,0.2) 100%);
+}
+.step { text-align: center; position: relative; }
+.step-num {
+  width: 40px; height: 40px;
+  background: var(--violet);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 800; color: var(--white);
+  margin-inline: auto;
+  margin-bottom: 20px;
+  position: relative; z-index: 1;
+}
+.step-title { font-family: 'Syne', sans-serif; font-size: 17px; font-weight: 700; color: var(--white); margin-bottom: 8px; }
+.step-desc { font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.7; }
+
+/* ══════════════════════
+   PRECIO
+══════════════════════ */
+.price-card {
+  max-width: 480px;
+  margin-inline: auto;
+  margin-top: 48px;
+  border: 1px solid var(--line);
+  padding: 48px 40px;
+  text-align: center;
+  position: relative;
+}
+.price-badge {
+  position: absolute; top: -13px; left: 50%; transform: translateX(-50%);
+  background: var(--violet);
+  color: var(--white);
+  font-size: 10px; font-weight: 500;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  padding: 4px 16px;
+  border-radius: 100px;
+  white-space: nowrap;
+}
+.price-name { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; color: var(--ink); margin-bottom: 4px; }
+.price-amount {
+  font-family: 'Syne', sans-serif;
+  font-size: 52px; font-weight: 800;
+  color: var(--violet);
+  line-height: 1.0;
+  margin-block: 16px;
+}
+.price-amount sup { font-size: 24px; vertical-align: top; margin-top: 10px; }
+.price-period { font-size: 14px; color: var(--muted); margin-bottom: 24px; }
+.price-items { list-style: none; text-align: left; margin-bottom: 32px; display: flex; flex-direction: column; gap: 10px; }
+.price-items li { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--ink2); }
+.price-items li::before { content: '✓'; color: var(--violet); font-weight: 700; flex-shrink: 0; }
+.price-cta {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  width: 100%; padding: 15px;
+  background: var(--violet);
+  color: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px; font-weight: 500;
+  letter-spacing: 0.08em;
+  text-decoration: none; border-radius: 100px;
+  transition: opacity 0.2s;
+}
+.price-cta:hover { opacity: 0.88; }
+.price-cta svg { width: 16px; height: 16px; fill: currentColor; }
+.price-note { font-size: 12px; color: var(--muted); margin-top: 14px; }
+
+/* ══════════════════════
+   FAQ
+══════════════════════ */
+#faq { background: var(--light-alt); }
+.faq-list { margin-top: 44px; display: flex; flex-direction: column; gap: 0; max-width: 680px; }
+.faq-item { border-top: 1px solid var(--line); }
+.faq-item:last-child { border-bottom: 1px solid var(--line); }
+.faq-q {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 20px 0; cursor: pointer;
+  font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 700;
+  color: var(--ink); gap: 16px;
+  user-select: none;
+}
+.faq-icon { flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid var(--line); display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
+.faq-icon svg { width: 10px; height: 10px; fill: var(--muted); transition: transform 0.3s; }
+.faq-item.open .faq-icon { background: var(--violet); border-color: var(--violet); }
+.faq-item.open .faq-icon svg { fill: white; transform: rotate(45deg); }
+.faq-a { font-size: 14px; color: var(--muted); line-height: 1.8; max-height: 0; overflow: hidden; transition: max-height 0.35s ease, padding 0.3s; }
+.faq-item.open .faq-a { max-height: 200px; padding-bottom: 20px; }
+
+/* ══════════════════════
+   CTA FINAL
+══════════════════════ */
+.cta-final {
+  background: var(--ink);
+  padding: 80px clamp(20px,5vw,60px);
+  text-align: center;
+}
+.cta-final-title {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(28px,6vw,48px); font-weight: 800;
+  color: var(--white); text-wrap: balance;
+  max-width: 600px; margin-inline: auto;
+}
+.cta-final-title em { font-style: italic; font-family: 'DM Sans', sans-serif; font-weight: 300; color: var(--gold); }
+.cta-final-sub { font-size: 16px; color: rgba(255,255,255,0.5); margin-top: 14px; margin-bottom: 36px; }
+.btn-wa {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 16px 36px;
+  background: #25D366;
+  color: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px; font-weight: 500;
+  text-decoration: none; border-radius: 100px;
+  transition: opacity 0.2s, transform 0.2s;
+}
+.btn-wa:hover { opacity: 0.9; transform: translateY(-2px); }
+.btn-wa svg { width: 20px; height: 20px; fill: currentColor; }
+
+/* FOOTER */
+footer {
+  background: #080610;
+  padding: 24px clamp(20px,5vw,60px);
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 12px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.footer-logo { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 800; color: rgba(255,255,255,0.5); }
+.footer-logo span { color: var(--violet-lt); }
+.footer-copy { font-size: 11px; color: rgba(255,255,255,0.25); }
+
+/* RESPONSIVE */
+@media (max-width: 600px) {
+  .steps { grid-template-columns: 1fr; gap: 28px; }
+  .steps::before { display: none; }
+  .hero-previews .mini-card { width: 85px; height: 126px; }
+  .price-card { padding: 40px 24px; }
+  footer { justify-content: center; text-align: center; }
+}
+</style>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">Sello<span>mail</span></a>
+  <a class="nav-cta" href="https://wa.me/5493541000000?text=Hola%2C%20quiero%20una%20invitaci%C3%B3n%20digital" target="_blank">
+    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.532 5.848L0 24l6.332-1.508A11.934 11.934 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.8 9.8 0 01-5.004-1.369l-.36-.213-3.754.895.952-3.648-.235-.374A9.786 9.786 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>
+    Consultar por WhatsApp
+  </a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">Sellomail · Presencia Digital</div>
+  <h1 class="hero-title">
+    Invitaciones digitales<br><em>que sorprenden</em>
+  </h1>
+  <p class="hero-sub">
+    Una página web personalizada para tu evento — con cuenta regresiva en vivo, mapa, RSVP y álbum de fotos compartido. Lista en 48hs.
+  </p>
+  <div class="hero-actions">
+    <a class="btn-primary" href="https://wa.me/5493541000000?text=Hola%2C%20quiero%20una%20invitaci%C3%B3n%20digital" target="_blank">
+      <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.532 5.848L0 24l6.332-1.508A11.934 11.934 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.8 9.8 0 01-5.004-1.369l-.36-.213-3.754.895.952-3.648-.235-.374A9.786 9.786 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>
+      Quiero la mía
+    </a>
+    <a class="btn-secondary" href="#templates">Ver los modelos ↓</a>
+  </div>
+
+  <!-- MINI PREVIEW CARDS -->
+  <div class="hero-previews">
+    <div class="mini-card mc-boda">
+      <a href="https://claude.ai/artifact/WaLHV5FWNgDSiMi55CEgs7" target="_blank"></a>
+      <div class="mc-content">
+        <div class="mc-h">Valentina<br>&amp;<br>Rodrigo</div>
+        <div class="mc-acc"></div>
+        <div class="mc-sub">Nos casamos</div>
+        <div class="mc-date">14 · jun · 2027</div>
+      </div>
+      <div class="mini-card-label" style="color:#8B6F52;">Bodas</div>
+    </div>
+    <div class="mini-card mc-cumple">
+      <a href="https://claude.ai/artifact/Phb2uKi8wZmqivcmrvxNVF" target="_blank"></a>
+      <div class="mc-content">
+        <span class="mc-emoji">🎉</span>
+        <div class="mc-h">Sofía</div>
+        <div class="mc-sub">cumple 5 añitos 🎂</div>
+        <div class="mc-dots">
+          <span style="background:#F4622A"></span>
+          <span style="background:#FFB830"></span>
+          <span style="background:#3BBFCE"></span>
+        </div>
+      </div>
+      <div class="mini-card-label" style="color:#F4622A;">Cumple infantil</div>
+    </div>
+    <div class="mini-card mc-anni">
+      <a href="https://claude.ai/artifact/1uWrdHqTGHegVP1mtxrkAM" target="_blank"></a>
+      <div class="mc-content">
+        <div class="mc-big">20</div>
+        <div class="mc-sub">años de amor</div>
+        <div class="mc-names">Ana &amp; Martín</div>
+        <span class="mc-heart">♥</span>
+      </div>
+      <div class="mini-card-label" style="color:#9B2335;">Aniversarios</div>
+    </div>
+    <div class="mini-card mc-joda">
+      <a href="https://claude.ai/artifact/7BHETENejhZ2ftwvUG7Bve" target="_blank"></a>
+      <div class="mc-content">
+        <div class="mc-h"><span>Lucas</span><br>cumple 30</div>
+        <div class="mc-sub">la joda</div>
+        <div class="mc-line"></div>
+        <div class="mc-info">22:00 hs · Córdoba</div>
+      </div>
+      <div class="mini-card-label" style="color:#C040FF;">Fiestas</div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES BAR -->
+<div class="features-bar">
+  <div class="feat-item"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Link propio para compartir</div>
+  <div class="feat-item"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Cuenta regresiva en vivo</div>
+  <div class="feat-item"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>RSVP integrado</div>
+  <div class="feat-item"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Álbum de fotos Drive</div>
+  <div class="feat-item"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Lista en 48 hs</div>
+</div>
+
+<!-- TEMPLATES -->
+<section id="templates">
+  <div class="section-inner">
+    <div class="eyebrow-tag">modelos disponibles</div>
+    <h2 class="section-title">4 estilos, cada evento tiene el suyo</h2>
+    <p class="section-sub">Cada modelo viene con paletas de color intercambiables y se personaliza con tus datos.</p>
+    <div class="templates-grid">
+
+      <div class="tpl-card">
+        <div class="tpl-preview prev-boda">
+          <div class="pv-h">Valentina<br>&amp;<br>Rodrigo</div>
+          <div class="pv-rule"></div>
+          <div class="pv-tag">nos casamos</div>
+        </div>
+        <div class="tpl-info">
+          <div class="tpl-name">Bodas</div>
+          <div class="tpl-desc">Diseño letterpress elegante con countdown, mapa de ceremonia y recepción, dresscode y mesa de regalos.</div>
+          <div class="tpl-palettes">
+            <div class="tpl-dot" style="background:#FAF8F5;border-color:#8B6F52;"></div>
+            <div class="tpl-dot" style="background:#FDF5F3;border-color:#B87070;"></div>
+            <div class="tpl-dot" style="background:#F5F8F4;border-color:#5F7A65;"></div>
+            <div class="tpl-dot" style="background:#131110;border-color:#C9A882;"></div>
+          </div>
+          <a class="tpl-link" href="https://claude.ai/artifact/WaLHV5FWNgDSiMi55CEgs7" target="_blank">
+            Ver demo <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="tpl-card">
+        <div class="tpl-preview prev-cumple">
+          <span class="pv-emoji">🎉</span>
+          <div class="pv-h">Sofía</div>
+          <div class="pv-sub">cumple 5 añitos 🎂</div>
+          <div class="pv-dots">
+            <span style="background:#F4622A"></span>
+            <span style="background:#FFB830"></span>
+            <span style="background:#3BBFCE"></span>
+            <span style="background:#F4622A"></span>
+          </div>
+        </div>
+        <div class="tpl-info">
+          <div class="tpl-name">Cumpleaños infantil</div>
+          <div class="tpl-desc">Colores vibrantes, temáticas intercambiables (Princesas, Unicornio 🦄, Dinosaurios 🦖, Bajo el mar 🐠) y campo de alergias en el RSVP.</div>
+          <div class="tpl-palettes">
+            <div class="tpl-dot" style="background:#FFF9F0;border-color:#F4622A;"></div>
+            <div class="tpl-dot" style="background:#FEF0FF;border-color:#C030D0;"></div>
+            <div class="tpl-dot" style="background:#F0FFF4;border-color:#2EA04A;"></div>
+            <div class="tpl-dot" style="background:#F0F8FF;border-color:#0B72B9;"></div>
+          </div>
+          <a class="tpl-link" href="https://claude.ai/artifact/Phb2uKi8wZmqivcmrvxNVF" target="_blank">
+            Ver demo <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="tpl-card">
+        <div class="tpl-preview prev-anni">
+          <div class="pv-big">20</div>
+          <div class="pv-sub">años de amor</div>
+          <div class="pv-names">Ana &amp; Martín</div>
+        </div>
+        <div class="tpl-info">
+          <div class="tpl-name">Aniversarios</div>
+          <div class="tpl-desc">Timeline de pareja editable, números grandes para los años, paletas de borgoña a dorado oscuro.</div>
+          <div class="tpl-palettes">
+            <div class="tpl-dot" style="background:#FAF7F2;border-color:#9B2335;"></div>
+            <div class="tpl-dot" style="background:#FBF8F0;border-color:#A07820;"></div>
+            <div class="tpl-dot" style="background:#F2F5FA;border-color:#1A3A80;"></div>
+            <div class="tpl-dot" style="background:#120E0C;border-color:#D4A050;"></div>
+          </div>
+          <a class="tpl-link" href="https://claude.ai/artifact/1uWrdHqTGHegVP1mtxrkAM" target="_blank">
+            Ver demo <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="tpl-card">
+        <div class="tpl-preview prev-joda">
+          <div class="pv-h"><span>Lucas</span><br>cumple 30</div>
+          <div class="pv-sub">y lo festeja en grande</div>
+          <div class="pv-rule"></div>
+          <div class="pv-time">22:00 hs · Córdoba</div>
+        </div>
+        <div class="tpl-info">
+          <div class="tpl-name">Fiestas y jodas</div>
+          <div class="tpl-desc">Estética bold neon con grid de info rápida (barra, música, estacionamiento), countdown y RSVP. Para cumples de adultos y fiestas en general.</div>
+          <div class="tpl-palettes">
+            <div class="tpl-dot" style="background:#0E0C14;border-color:#C040FF;"></div>
+            <div class="tpl-dot" style="background:#0C0A06;border-color:#F0C030;"></div>
+            <div class="tpl-dot" style="background:#0C0606;border-color:#FF2040;"></div>
+            <div class="tpl-dot" style="background:#F8F5FF;border-color:#7020E0;"></div>
+          </div>
+          <a class="tpl-link" href="https://claude.ai/artifact/7BHETENejhZ2ftwvUG7Bve" target="_blank">
+            Ver demo <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- QUÉ INCLUYE -->
+<section>
+  <div class="section-inner">
+    <div class="eyebrow-tag">todo incluido</div>
+    <h2 class="section-title">Una invitación completa, no solo un link</h2>
+    <p class="section-sub">Cada invitación digital viene con todo lo que necesitás para que tus invitados lleguen bien informados.</p>
+    <div class="includes-grid">
+      <div class="inc-item"><span class="inc-icon">⏱️</span><div class="inc-title">Cuenta regresiva</div><div class="inc-desc">Días, horas, minutos y segundos en vivo hasta el evento.</div></div>
+      <div class="inc-item"><span class="inc-icon">📍</span><div class="inc-title">Mapa integrado</div><div class="inc-desc">Dirección completa con botón directo a Google Maps.</div></div>
+      <div class="inc-item"><span class="inc-icon">✅</span><div class="inc-title">RSVP online</div><div class="inc-desc">Formulario de confirmación sin apps ni descargas.</div></div>
+      <div class="inc-item"><span class="inc-icon">📸</span><div class="inc-title">Álbum Drive</div><div class="inc-desc">Carpeta compartida para que los invitados suban sus fotos.</div></div>
+      <div class="inc-item"><span class="inc-icon">🎨</span><div class="inc-title">Paleta a elección</div><div class="inc-desc">4 combinaciones de colores por modelo. Elegís cuál te gusta.</div></div>
+      <div class="inc-item"><span class="inc-icon">📱</span><div class="inc-title">100% mobile</div><div class="inc-desc">Se ve perfecto en el celular — que es donde lo van a abrir.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- C�SMO FUNCIONA -->
+<section id="como">
+  <div class="section-inner">
+    <div class="eyebrow-tag">el proceso</div>
+    <h2 class="section-title">En 48 horas tenés tu invitación lista</h2>
+    <p class="section-sub">Sin formularios complicados ni esperas largas.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-title">Elegís el modelo</div>
+        <div class="step-desc">Mirás los demos, elegís el estilo y la paleta de colores que más te gusta.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-title">Nos mandás los datos</div>
+        <div class="step-desc">Por WhatsApp: nombres, fecha, lugar, horario y cualquier detalle extra.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-title">Recibís el link</div>
+        <div class="step-desc">En hasta 48 hs tenés la URL lista para compartir con tus invitados.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRECIO -->
+<section>
+  <div class="section-inner">
+    <div style="text-align:center;">
+      <div class="eyebrow-tag">sin sorpresas</div>
+      <h2 class="section-title">Un precio, todo incluido</h2>
+      <p class="section-sub" style="margin-inline:auto;">Sin costos ocultos, sin suscripciones. Pagás una vez y el link queda activo por 12 meses.</p>
+    </div>
+    <div class="price-card">
+      <div class="price-badge">Más popular</div>
+      <div class="price-name">Invitación Digital Completa</div>
+      <div class="price-amount"><sup>$</sup>49.000</div>
+      <div class="price-period">pago único · ARS · IVA incluido</div>
+      <ul class="price-items">
+        <li>Modelo a elección (boda, cumple, aniversario o joda)</li>
+        <li>Paleta de colores a elección</li>
+        <li>Personalización completa con tus datos</li>
+        <li>Link propio para compartir</li>
+        <li>Cuenta regresiva, mapa y RSVP</li>
+        <li>Álbum Drive compartido configurado</li>
+        <li>Link activo por 12 meses</li>
+        <li>1 revisión gratuita antes de publicar</li>
+      </ul>
+      <a class="price-cta" href="https://wa.me/5493541000000?text=Hola%2C%20quiero%20una%20invitaci%C3%B3n%20digital%20por%20%2449.000" target="_blank">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.532 5.848L0 24l6.332-1.508A11.934 11.934 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.8 9.8 0 01-5.004-1.369l-.36-.213-3.754.895.952-3.648-.235-.374A9.786 9.786 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>
+        Quiero la mía — contactar por WhatsApp
+      </a>
+      <div class="price-note">¿Querés algo distinto? Consultá — hacemos diseños a medida.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="section-inner">
+    <div class="eyebrow-tag">preguntas frecuentes</div>
+    <h2 class="section-title">Lo que nos suelen preguntar</h2>
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <div class="faq-q">
+          ¿Los invitados necesitan instalar algo para verla?
+          <div class="faq-icon"><svg viewBox="0 0 24 24"><path d="M19 13H13v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div>
+        </div>
+        <div class="faq-a">No. La invitación es una página web — se abre con un link en el navegador del celular o la computadora. Sin apps, sin descargas, sin registro.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          ¿Puedo cambiar los datos después de publicada?
+          <div class="faq-icon"><svg viewBox="0 0 24 24"><path d="M19 13H13v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div>
+        </div>
+        <div class="faq-a">Sí. La revisión gratuita incluida cubre cambios antes de publicar. Si necesitás modificar algo después de la publicación, lo hacemos con un costo adicional mínimo según el tipo de cambio.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          ¿Cómo la comparto con mis invitados?
+          <div class="faq-icon"><svg viewBox="0 0 24 24"><path d="M19 13H13v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div>
+        </div>
+        <div class="faq-a">Recibís un link corto que podés compartir por WhatsApp, Instagram, mail o como quieras. También podés agregar un QR a tus tarjetas físicas si las tenés.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          ¿Cuánto tiempo queda activo el link?
+          <div class="faq-icon"><svg viewBox="0 0 24 24"><path d="M19 13H13v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div>
+        </div>
+        <div class="faq-a">12 meses desde la fecha de publicación. Más que suficiente para cualquier evento — y si necesitás más tiempo, se renueva por una suma mínima.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<div class="cta-final">
+  <h2 class="cta-final-title">Tu evento merece<br>una invitación <em>que sorprenda</em></h2>
+  <p class="cta-final-sub">Escribinos y en 48 horas tenés el link listo para compartir.</p>
+  <a class="btn-wa" href="https://wa.me/5493541000000?text=Hola%2C%20vi%20las%20invitaciones%20digitales%20de%20Sellomail%20y%20me%20interesa" target="_blank">
+    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.532 5.848L0 24l6.332-1.508A11.934 11.934 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.8 9.8 0 01-5.004-1.369l-.36-.213-3.754.895.952-3.648-.235-.374A9.786 9.786 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>
+    Consultar por WhatsApp
+  </a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Sello<span>mail</span> · Presencia Digital</div>
+  <div class="footer-copy">Villa Yacanto, Córdoba, Argentina · invitaciones@sellomail.com</div>
+</footer>
+
+<script>
+  // FAQ accordion
+  document.querySelectorAll('.faq-q').forEach(q => {
+    q.addEventListener('click', () => {
+      const item = q.closest('.faq-item');
+      const wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!wasOpen) item.classList.add('open');
+    });
+  });
+
+  // Scroll reveal
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(el => {
+      if (el.isIntersecting) { el.target.style.opacity = '1'; el.target.style.transform = 'translateY(0)'; io.unobserve(el.target); }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.tpl-card,.inc-item,.step,.price-card,.faq-item').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    io.observe(el);
+  });
+</script>
