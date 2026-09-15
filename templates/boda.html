@@ -5,7 +5,7 @@
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  /* ═══ TEMAS ═══ */
+  /* Ã¢â¢ÂÃ¢â¢ÂÃ¢â¢Â TEMAS Ã¢â¢ÂÃ¢â¢ÂÃ¢â¢Â */
   :root {
     --bg:        #FAF8F5;
     --bg-alt:    #F2EDE5;
@@ -59,7 +59,7 @@
     transition: background 0.4s, color 0.4s;
   }
 
-  /* ═══ SELECTOR DE TEMA (flotante arriba) ═══ */
+  /* Ã¢â¢ÂÃ¢â¢ÂÃ¢â¢Â SELECTOR DE TEMA (flotante arriba) Ã¢â¢ÂÃ¢â¢ÂÃ¢â¢Â */
   .theme-bar {
     position: sticky;
     top: 0;
@@ -111,14 +111,14 @@
   }
   .theme-dot:hover::after { opacity: 1; }
 
-  /* ═══ WRAPPER ═══ */
+  /* Ã¢â¢ÂÃ¢â¢ÂÃ¢â¢Â WRAPPER Ã¢â¢ÂÃ¢â¢ÂÃ¢â¢Â */
   .card {
     max-width: 560px;
     margin-inline: auto;
     padding-block: 56px 80px;
   }
 
-  /* ═══ ORNAMENT ═══ */
+  /* Ã¢â¢ÂÃ¢â¢ÂÃ¢â¢Â ORNAMENT Ã¢â¢ÂÃ¢â¢ÂÃ¢â¢Â */
   .ornament {
     display: flex;
     align-items: center;
@@ -142,7 +142,7 @@
     transition: color 0.4s;
   }
 
-  /* ═══ FADE-IN SECTIONS ═══ */
+  /* Ã¢â¢ÂÃ¢â¢ÂÃ¢â¢Â FADE-IN SECTIONS Ã¢â¢ÂÃ¢â¢ÂÃ¢â¢Â */
   .fade-in {
     opacity: 0;
     transform: translateY(20px);
@@ -153,7 +153,7 @@
     transform: translateY(0);
   }
 
-  /* ═══ HERO ═══ */
+  /* Ã¢â¢ÂÃ¢â¢ÂÃ¢â¢Â HERO Ã¢â¢ÂÃ¢â¢ÂÃ¢â¢Â */
   .hero { text-align: center; padding-block: 8px; }
   .eyebrow {
     font-size: 10px;
@@ -192,7 +192,7 @@
     transition: color 0.4s;
   }
 
-  /* ═══ COUNTDOWN ═══ */
+  /* Ã¢â¢ÂÃ¢â¢ÂÃ¢â¢Â COUNTDOWN Ã¢â¢ÂÃ¢â¢ÂÃ¢â¢Â */
   .countdown-wrap { text-align: center; }
   .countdown-label {
     font-size: 10px;
@@ -243,7 +243,7 @@
     transition: color 0.4s;
   }
 
-  /* ═══ SECCIONES ═══ */
+  /* Ã¢â¢ÂÃ¢â¢ÂÃ¢â¢Â SECCIONES Ã¢â¢ÂÃ¢â¢ÂÃ¢â¢Â */
   .section { text-align: center; }
   .section-tag {
     font-size: 10px;
@@ -269,7 +269,7 @@
   }
   .section-detail strong { color: var(--ink); font-weight: 500; transition: color 0.4s; }
 
-  /* ═══ EVENTOS ═══ */
+  /* Ã¢â¢ÂÃ¢â¢ÂÃ¢â¢Â EVENTOS Ã¢â¢ÂÃ¢â¢ÂÃ¢â¢Â */
   .eventos {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -330,7 +330,7 @@
   .map-btn:hover { background: var(--accent); color: var(--white); }
   .map-btn svg { width: 11px; height: 11px; fill: currentColor; }
 
-  /* ═══ DRIVE / FOTOS ═══ */
+  /* Ã¢â¢ÂÃ¢â¢ÂÃ¢â¢Â DRIVE / FOTOS Ã¢â¢ÂÃ¢â¢ÂÃ¢â¢Â */
   .drive-wrap {
     background: var(--bg-alt);
     border: 1px solid var(--line);
@@ -364,7 +364,7 @@
   .drive-btn:hover { opacity: 0.85; }
   .drive-btn svg { width: 14px; height: 14px; fill: currentColor; flex-shrink: 0; }
 
-  /* ═══ DRESSCODE ═══ */
+  /* Ã¢â¢ÂÃ¢â¢ÂÃ¢â¢Â DRESSCODE Ã¢â¢ÂÃ¢â¢ÂÃ¢â¢Â */
   .dresscode-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -400,7 +400,7 @@
     transition: color 0.4s;
   }
 
-  /* ═══ RSVP ═══ */
+  /* Ã¢â¢ÂÃ¢â¢ÂÃ¢â¢Â RSVP Ã¢â¢ÂÃ¢â¢ÂÃ¢â¢Â */
   .rsvp-wrap {
     background: var(--ink);
     padding: 44px 32px;
@@ -468,7 +468,13 @@
     margin-top: 8px;
   }
 
-  /* ═══ FOOTER ═══ */
+  /* Fix tema noche: --ink es claro, forzar fondo oscuro en RSVP */
+  [data-theme="noche"] .rsvp-wrap { background: var(--bg-alt); }
+  [data-theme="noche"] input,
+  [data-theme="noche"] select { color: var(--ink); }
+  [data-theme="noche"] input::placeholder { color: var(--muted); }
+
+  /* Ã¢â¢ÂÃ¢â¢ÂÃ¢â¢Â FOOTER Ã¢â¢ÂÃ¢â¢ÂÃ¢â¢Â */
   .footer { text-align: center; padding-top: 16px; }
   .footer-names {
     font-family: 'Cormorant Garamond', serif;
@@ -504,9 +510,9 @@
 <!-- BARRA DE TEMAS -->
 <div class="theme-bar">
   <span class="theme-label">estilo</span>
-  <div class="theme-dot active" data-t="clasico" title="Clásico"></div>
-  <div class="theme-dot" data-t="rosa" title="Romántico"></div>
-  <div class="theme-dot" data-t="salvia" title="Jardín"></div>
+  <div class="theme-dot active" data-t="clasico" title="ClÃÂ¡sico"></div>
+  <div class="theme-dot" data-t="rosa" title="RomÃÂ¡ntico"></div>
+  <div class="theme-dot" data-t="salvia" title="JardÃÂ­n"></div>
   <div class="theme-dot" data-t="noche" title="Noche"></div>
 </div>
 
@@ -520,10 +526,10 @@
       <span class="ampersand">&amp;</span>
       <em>Rodrigo</em>
     </div>
-    <p class="wedding-date">Sábado, 14 de junio de 2027 · Villa General Belgrano, Córdoba</p>
+    <p class="wedding-date">SÃÂ¡bado, 14 de junio de 2027 ÃÂ· Villa General Belgrano, CÃÂ³rdoba</p>
   </div>
 
-  <div class="ornament"><span class="ornament-glyph">✦</span></div>
+  <div class="ornament"><span class="ornament-glyph">Ã¢ÅÂ¦</span></div>
 
   <!-- COUNTDOWN -->
   <div class="countdown-wrap fade-in">
@@ -531,7 +537,7 @@
     <div class="countdown" id="cd-display">
       <div class="cd-unit">
         <span class="cd-num" id="cd-dias">--</span>
-        <span class="cd-lbl">días</span>
+        <span class="cd-lbl">dÃÂ­as</span>
       </div>
       <div class="cd-unit">
         <span class="cd-num" id="cd-horas">--</span>
@@ -546,55 +552,55 @@
         <span class="cd-lbl">seg</span>
       </div>
     </div>
-    <p class="gran-dia" id="gran-dia-msg">¡Hoy es el gran día! 🥂</p>
+    <p class="gran-dia" id="gran-dia-msg">ÃÂ¡Hoy es el gran dÃÂ­a! Ã°Å¸Â¥â</p>
   </div>
 
-  <div class="ornament"><span class="ornament-glyph">✦</span></div>
+  <div class="ornament"><span class="ornament-glyph">Ã¢ÅÂ¦</span></div>
 
   <!-- HISTORIA -->
   <div class="section fade-in">
     <p class="section-tag">nuestra historia</p>
     <h2 class="section-title">Nos conocimos en 2018</h2>
     <p class="section-detail">
-      Lo que empezó como una tarde de mate en la plaza terminó siendo<br>
-      siete años de aventuras, risas y proyectos compartidos.<br>
-      Hoy queremos que estés presente en el día más importante de nuestra vida.
+      Lo que empezÃÂ³ como una tarde de mate en la plaza terminÃÂ³ siendo<br>
+      siete aÃÂ±os de aventuras, risas y proyectos compartidos.<br>
+      Hoy queremos que estÃÂ©s presente en el dÃÂ­a mÃÂ¡s importante de nuestra vida.
     </p>
   </div>
 
-  <div class="ornament"><span class="ornament-glyph">✦</span></div>
+  <div class="ornament"><span class="ornament-glyph">Ã¢ÅÂ¦</span></div>
 
   <!-- EVENTOS -->
   <div class="section fade-in">
-    <p class="section-tag">el gran día</p>
+    <p class="section-tag">el gran dÃÂ­a</p>
   </div>
   <div class="eventos fade-in">
     <div class="evento">
-      <span class="evento-icon">⛪</span>
+      <span class="evento-icon">Ã¢âºÂª</span>
       <p class="evento-name">Ceremonia</p>
       <p class="evento-info">
         <strong>17:00 hs</strong>
       </p>
       <p class="evento-addr">
-        Iglesia Nuestra Señora del Rosario<br>
-        Av. San Martín 245<br>
-        Villa General Belgrano, Córdoba
+        Iglesia Nuestra SeÃÂ±ora del Rosario<br>
+        Av. San MartÃÂ­n 245<br>
+        Villa General Belgrano, CÃÂ³rdoba
       </p>
-      <a class="map-btn" href="https://maps.google.com/?q=Iglesia+Nuestra+Señora+del+Rosario+Villa+General+Belgrano" target="_blank">
+      <a class="map-btn" href="https://maps.google.com/?q=Iglesia+Nuestra+SeÃÂ±ora+del+Rosario+Villa+General+Belgrano" target="_blank">
         <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/></svg>
         Ver en el mapa
       </a>
     </div>
     <div class="evento">
-      <span class="evento-icon">🥂</span>
-      <p class="evento-name">Recepción</p>
+      <span class="evento-icon">Ã°Å¸Â¥â</span>
+      <p class="evento-name">RecepciÃÂ³n</p>
       <p class="evento-info">
         <strong>20:00 hs</strong>
       </p>
       <p class="evento-addr">
-        Estancia Los Ombúes<br>
+        Estancia Los OmbÃÂºes<br>
         Ruta 5 km 94<br>
-        Villa General Belgrano, Córdoba
+        Villa General Belgrano, CÃÂ³rdoba
       </p>
       <a class="map-btn" href="https://maps.google.com/?q=Estancia+Los+Ombues+Ruta+5+km+94+Villa+General+Belgrano" target="_blank">
         <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/></svg>
@@ -603,13 +609,13 @@
     </div>
   </div>
 
-  <div class="ornament"><span class="ornament-glyph">✦</span></div>
+  <div class="ornament"><span class="ornament-glyph">Ã¢ÅÂ¦</span></div>
 
   <!-- DRESSCODE -->
   <div class="section fade-in">
     <p class="section-tag">vestimenta</p>
     <h2 class="section-title">Formal elegante</h2>
-    <p class="section-detail">Queremos que estés cómodo/a y que la noche sea memorable.</p>
+    <p class="section-detail">Queremos que estÃÂ©s cÃÂ³modo/a y que la noche sea memorable.</p>
     <div class="dresscode-grid">
       <div class="dc-item">
         <div class="dc-swatch" style="background:#1A1714;"></div>
@@ -623,66 +629,66 @@
       </div>
     </div>
     <p class="section-detail" style="margin-top:16px;font-size:13px;">
-      Por favor, <strong>evitá el blanco</strong>. ¡Gracias!
+      Por favor, <strong>evitÃÂ¡ el blanco</strong>. ÃÂ¡Gracias!
     </p>
   </div>
 
-  <div class="ornament"><span class="ornament-glyph">✦</span></div>
+  <div class="ornament"><span class="ornament-glyph">Ã¢ÅÂ¦</span></div>
 
   <!-- REGALO -->
   <div class="section fade-in">
     <p class="section-tag">mesa de regalos</p>
     <h2 class="section-title">Tu presencia es el mejor regalo</h2>
     <p class="section-detail">
-      Si querés contribuir a nuestra luna de miel o nuestro nuevo hogar,<br>
-      podés hacerlo vi�a transferencia:
+      Si querÃÂ©s contribuir a nuestra luna de miel o nuestro nuevo hogar,<br>
+      podÃÂ©s hacerlo viÃa transferencia:
     </p>
     <p class="section-detail" style="margin-top:18px;">
       <strong>CBU:</strong> 0000000000000000000000<br>
       <strong>Alias:</strong> valentina.rodrigo.boda<br>
-      <strong>Titular:</strong> Valentina García
+      <strong>Titular:</strong> Valentina GarcÃÂ­a
     </p>
   </div>
 
-  <div class="ornament"><span class="ornament-glyph">✦</span></div>
+  <div class="ornament"><span class="ornament-glyph">Ã¢ÅÂ¦</span></div>
 
   <!-- FOTOS COMPARTIDAS -->
   <div class="drive-wrap fade-in">
-    <span class="drive-icon">📸</span>
-    <p class="section-tag">álbum compartido</p>
-    <h2 class="section-title">Subí tus fotos</h2>
+    <span class="drive-icon">Ã°Å¸âÂ¸</span>
+    <p class="section-tag">ÃÂ¡lbum compartido</p>
+    <h2 class="section-title">SubÃÂ­ tus fotos</h2>
     <p class="section-detail">
       Queremos que cada momento quede guardado.<br>
-      Usá el álbum compartido para subir fotos y videos del día — antes, durante y después.
+      UsÃÂ¡ el ÃÂ¡lbum compartido para subir fotos y videos del dÃÂ­a Ã¢â¬â antes, durante y despuÃÂ©s.
     </p>
     <a class="drive-btn" href="https://drive.google.com/drive/folders/LINK_AQUI" target="_blank">
       <svg viewBox="0 0 24 24"><path d="M6.28 3L1 12.14l3.14 5.43L9.43 8.43zm3.15 5.43L4.14 17.57h9.71L9.43 8.43zM9.43 8.43L14.57 17.57H23l-5.28-9.14zm4.14 0L18.72 3H9.43z"/></svg>
-      Abrir álbum en Drive
+      Abrir ÃÂ¡lbum en Drive
     </a>
     <p class="section-detail" style="font-size:12px;margin-top:14px;opacity:0.7;">
-      El link lleva a una carpeta compartida — no hace falta cuenta de Google para subir fotos.
+      El link lleva a una carpeta compartida Ã¢â¬â no hace falta cuenta de Google para subir fotos.
     </p>
   </div>
 
-  <div class="ornament"><span class="ornament-glyph">✦</span></div>
+  <div class="ornament"><span class="ornament-glyph">Ã¢ÅÂ¦</span></div>
 
   <!-- RSVP -->
   <div class="rsvp-wrap fade-in">
-    <p class="section-tag">confirmación</p>
-    <h2 class="section-title">¿Nos acompañás?</h2>
-    <p class="rsvp-deadline">Confirmá tu asistencia antes del <strong>31 de mayo de 2027</strong></p>
+    <p class="section-tag">confirmaciÃÂ³n</p>
+    <h2 class="section-title">ÃÂ¿Nos acompaÃÂ±ÃÂ¡s?</h2>
+    <p class="rsvp-deadline">ConfirmÃÂ¡ tu asistencia antes del <strong>31 de mayo de 2027</strong></p>
     <form id="rsvpForm">
       <div class="form-row">
         <input type="text" id="nombre" placeholder="Tu nombre completo" required>
       </div>
       <div class="form-row two-col">
         <select id="asistencia" required>
-          <option value="" disabled selected>¿Asistís?</option>
-          <option value="si">Sí, con gusto 🥂</option>
-          <option value="no">No puedo ir 😔</option>
+          <option value="" disabled selected>ÃÂ¿AsistÃÂ­s?</option>
+          <option value="si">SÃÂ­, con gusto Ã°Å¸Â¥â</option>
+          <option value="no">No puedo ir Ã°Å¸Ëâ</option>
         </select>
         <select id="menu">
-          <option value="" disabled selected>Menú</option>
+          <option value="" disabled selected>MenÃÂº</option>
           <option value="carne">Carne</option>
           <option value="veggie">Vegetariano</option>
           <option value="vegan">Vegano</option>
@@ -694,27 +700,27 @@
       <button type="submit" class="btn-rsvp">Confirmar asistencia</button>
     </form>
     <div class="rsvp-confirm" id="rsvpConfirm">
-      <p>¡Gracias! Ya tenemos tu confirmación 🥂</p>
-      <span>Nos vemos el 14 de junio de 2027 — va a ser una noche increíble.</span>
+      <p>ÃÂ¡Gracias! Ya tenemos tu confirmaciÃÂ³n Ã°Å¸Â¥â</p>
+      <span>Nos vemos el 14 de junio de 2027 Ã¢â¬â va a ser una noche increÃÂ­ble.</span>
     </div>
   </div>
 
-  <div class="ornament"><span class="ornament-glyph">✦</span></div>
+  <div class="ornament"><span class="ornament-glyph">Ã¢ÅÂ¦</span></div>
 
   <!-- FOOTER -->
   <div class="footer fade-in">
     <p class="footer-names">Valentina & Rodrigo</p>
     <p class="footer-msg">
-      Con amor desde Villa General Belgrano, Córdoba.<br>
-      ¡Gracias por ser parte de nuestra historia!
+      Con amor desde Villa General Belgrano, CÃÂ³rdoba.<br>
+      ÃÂ¡Gracias por ser parte de nuestra historia!
     </p>
-    <p class="made-by" style="margin-top:40px;">Invitación digital por <a href="#">Sellomail · Presencia Digital</a></p>
+    <p class="made-by" style="margin-top:40px;">InvitaciÃÂ³n digital por <a href="#">Sellomail ÃÂ· Presencia Digital</a></p>
   </div>
 
 </div>
 
 <script>
-  // ── COUNTDOWN ──
+  // Ã¢ââ¬Ã¢ââ¬ COUNTDOWN Ã¢ââ¬Ã¢ââ¬
   const bodaDate = new Date('2027-06-14T17:00:00');
   function tick() {
     const diff = bodaDate - new Date();
@@ -736,7 +742,7 @@
   tick();
   setInterval(tick, 1000);
 
-  // ── RSVP ──
+  // Ã¢ââ¬Ã¢ââ¬ RSVP Ã¢ââ¬Ã¢ââ¬
   document.getElementById('rsvpForm').addEventListener('submit', function(e) {
     e.preventDefault();
     if (!document.getElementById('nombre').value || !document.getElementById('asistencia').value) return;
@@ -744,7 +750,7 @@
     document.getElementById('rsvpConfirm').style.display = 'block';
   });
 
-  // ── TEMA ──
+  // Ã¢ââ¬Ã¢ââ¬ TEMA Ã¢ââ¬Ã¢ââ¬
   const root = document.documentElement;
   document.querySelectorAll('.theme-dot').forEach(dot => {
     dot.addEventListener('click', () => {
@@ -759,7 +765,7 @@
     });
   });
 
-  // ── FADE IN (IntersectionObserver) ──
+  // Ã¢ââ¬Ã¢ââ¬ FADE IN (IntersectionObserver) Ã¢ââ¬Ã¢ââ¬
   const io = new IntersectionObserver(entries => {
     entries.forEach(el => {
       if (el.isIntersecting) { el.target.classList.add('visible'); io.unobserve(el.target); }
@@ -767,7 +773,7 @@
   }, { threshold: 0.15 });
 
   document.querySelectorAll('.fade-in, .ornament').forEach(el => io.observe(el));
-  // Forzar visibles que ya están en viewport al cargar
+  // Forzar visibles que ya estÃÂ¡n en viewport al cargar
   setTimeout(() => {
     document.querySelectorAll('.fade-in, .ornament').forEach(el => {
       const rect = el.getBoundingClientRect();
