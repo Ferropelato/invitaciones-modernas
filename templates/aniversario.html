@@ -1,4 +1,4 @@
-<title>Ana & Martín · 20 años</title>
+<title>Ana & MartÃ­n Â· 20 aÃ±os</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Jost:wght@300;400;500&display=swap">
 
 <style>
@@ -226,6 +226,12 @@
   .rsvp-confirm p { font-family: 'Libre Baskerville', serif; font-size: 20px; font-style: italic; color: var(--white); }
   .rsvp-confirm span { font-size: 13px; color: rgba(255,255,255,0.5); display: block; margin-top: 7px; }
 
+  /* Fix tema oscuro: --ink es claro, forzar fondo oscuro en RSVP */
+  [data-theme="oscuro"] .rsvp-wrap { background: var(--bg-alt); }
+  [data-theme="oscuro"] input,
+  [data-theme="oscuro"] select { color: var(--ink); }
+  [data-theme="oscuro"] input::placeholder { color: var(--muted); }
+
   /* FOOTER */
   .footer { text-align: center; padding-top: 16px; }
   .footer-names { font-family: 'Libre Baskerville', serif; font-size: 22px; font-style: italic; color: var(--ink-soft); transition: color 0.45s; }
@@ -242,7 +248,7 @@
 
 <div class="theme-bar">
   <span class="theme-label">paleta</span>
-  <div class="theme-dot active" data-t="bordo" title="Borgoña"></div>
+  <div class="theme-dot active" data-t="bordo" title="BorgoÃ±a"></div>
   <div class="theme-dot" data-t="champagne" title="Champagne"></div>
   <div class="theme-dot" data-t="azul" title="Azul noche"></div>
   <div class="theme-dot" data-t="oscuro" title="Dorado oscuro"></div>
@@ -253,37 +259,37 @@
   <!-- HERO -->
   <div class="hero fade-in">
     <p class="eyebrow">celebramos juntos</p>
-    <div class="anni-badge">20<span class="anni-suffix">años de amor</span></div>
-    <div class="names">Ana & Martín</div>
-    <p class="hero-fecha">Viernes, 7 de agosto de 2026 · Córdoba, Argentina</p>
+    <div class="anni-badge">20<span class="anni-suffix">aÃ±os de amor</span></div>
+    <div class="names">Ana & MartÃ­n</div>
+    <p class="hero-fecha">Viernes, 7 de agosto de 2026 Â· CÃ³rdoba, Argentina</p>
   </div>
 
-  <div class="ornament"><span class="ornament-glyph">♥</span></div>
+  <div class="ornament"><span class="ornament-glyph">â¥</span></div>
 
   <!-- COUNTDOWN -->
   <div class="countdown-wrap fade-in">
     <p class="countdown-label">faltan para el festejo</p>
     <div class="countdown" id="cd-display">
-      <div class="cd-unit"><span class="cd-num" id="cd-dias">--</span><span class="cd-lbl">días</span></div>
+      <div class="cd-unit"><span class="cd-num" id="cd-dias">--</span><span class="cd-lbl">dÃ­as</span></div>
       <div class="cd-unit"><span class="cd-num" id="cd-horas">--</span><span class="cd-lbl">horas</span></div>
       <div class="cd-unit"><span class="cd-num" id="cd-min">--</span><span class="cd-lbl">min</span></div>
       <div class="cd-unit"><span class="cd-num" id="cd-seg">--</span><span class="cd-lbl">seg</span></div>
     </div>
-    <div class="gran-dia" id="gran-dia-msg">¡Hoy celebramos 20 años! ♥</div>
+    <div class="gran-dia" id="gran-dia-msg">Â¡Hoy celebramos 20 aÃ±os! â¥</div>
   </div>
 
-  <div class="ornament"><span class="ornament-glyph">♥</span></div>
+  <div class="ornament"><span class="ornament-glyph">â¥</span></div>
 
   <!-- NUESTRA HISTORIA -->
   <div class="section fade-in">
-    <p class="section-tag">20 años de historia</p>
-    <h2 class="section-title">Lo que empezó en 2006...</h2>
-    <p class="section-detail">Dos décadas de vida compartida, proyectos, familia y amor.<br>Queremos celebrarlo con las personas que estuvieron siempre.</p>
+    <p class="section-tag">20 aÃ±os de historia</p>
+    <h2 class="section-title">Lo que empezÃ³ en 2006...</h2>
+    <p class="section-detail">Dos dÃ©cadas de vida compartida, proyectos, familia y amor.<br>Queremos celebrarlo con las personas que estuvieron siempre.</p>
     <div class="timeline" style="margin-top:28px;">
       <div class="tl-item">
         <span class="tl-year">2006</span>
         <div class="tl-line"></div><div class="tl-dot"></div>
-        <p class="tl-text">Nos conocimos en la facultad. El primer café duró 4 horas.</p>
+        <p class="tl-text">Nos conocimos en la facultad. El primer cafÃ© durÃ³ 4 horas.</p>
       </div>
       <div class="tl-item">
         <span class="tl-year">2010</span>
@@ -293,29 +299,29 @@
       <div class="tl-item">
         <span class="tl-year">2015</span>
         <div class="tl-line"></div><div class="tl-dot"></div>
-        <p class="tl-text">Nos casamos en una tarde de junio. Llovió, pero fue perfecto.</p>
+        <p class="tl-text">Nos casamos en una tarde de junio. LloviÃ³, pero fue perfecto.</p>
       </div>
       <div class="tl-item">
         <span class="tl-year">2026</span>
         <div class="tl-dot" style="background:var(--gold)"></div>
-        <p class="tl-text"><strong>Hoy, veinte años después.</strong> Y empezando los próximos veinte.</p>
+        <p class="tl-text"><strong>Hoy, veinte aÃ±os despuÃ©s.</strong> Y empezando los prÃ³ximos veinte.</p>
       </div>
     </div>
   </div>
 
-  <div class="ornament"><span class="ornament-glyph">♥</span></div>
+  <div class="ornament"><span class="ornament-glyph">â¥</span></div>
 
   <!-- CENA / EVENTO -->
   <div class="section fade-in" style="margin-bottom:16px;">
-    <p class="section-tag">la celebración</p>
+    <p class="section-tag">la celebraciÃ³n</p>
   </div>
   <div class="cena-card fade-in">
-    <span class="cena-icon">🍷</span>
+    <span class="cena-icon">ð·</span>
     <div class="cena-hora">21:00 hs</div>
     <div class="cena-nombre">Restaurante La Cantina di Marco</div>
     <div class="cena-addr">
-      Av. Colón 1234, piso 2<br>
-      Córdoba Capital, Córdoba
+      Av. ColÃ³n 1234, piso 2<br>
+      CÃ³rdoba Capital, CÃ³rdoba
     </div>
     <a class="map-btn" href="https://maps.google.com/?q=Cordoba+Capital+Argentina" target="_blank">
       <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/></svg>
@@ -323,51 +329,51 @@
     </a>
   </div>
 
-  <div class="ornament"><span class="ornament-glyph">♥</span></div>
+  <div class="ornament"><span class="ornament-glyph">â¥</span></div>
 
   <!-- VESTIMENTA -->
   <div class="section fade-in">
     <p class="section-tag">vestimenta</p>
     <h2 class="section-title">Elegante</h2>
     <p class="section-detail">
-      Queremos que la noche sea especial. Vení elegante/a —<br>
-      sin código estricto, pero con toda la onda. ✨
+      Queremos que la noche sea especial. VenÃ­ elegante/a â<br>
+      sin cÃ³digo estricto, pero con toda la onda. â¨
     </p>
   </div>
 
-  <div class="ornament"><span class="ornament-glyph">♥</span></div>
+  <div class="ornament"><span class="ornament-glyph">â¥</span></div>
 
   <!-- DRIVE -->
   <div class="drive-wrap fade-in">
-    <span class="drive-icon">📸</span>
-    <p class="section-tag">álbum compartido</p>
-    <h2 class="section-title">Subí tus fotos</h2>
-    <p class="section-detail">Cada foto es un pedacito de nuestra historia.<br>Compartí las tuyas en el álbum de la noche.</p>
+    <span class="drive-icon">ð¸</span>
+    <p class="section-tag">Ã¡lbum compartido</p>
+    <h2 class="section-title">SubÃ­ tus fotos</h2>
+    <p class="section-detail">Cada foto es un pedacito de nuestra historia.<br>CompartÃ­ las tuyas en el Ã¡lbum de la noche.</p>
     <a class="drive-btn" href="https://drive.google.com/drive/folders/LINK_AQUI" target="_blank">
       <svg viewBox="0 0 24 24"><path d="M6.28 3L1 12.14l3.14 5.43L9.43 8.43zm3.15 5.43L4.14 17.57h9.71L9.43 8.43zM9.43 8.43L14.57 17.57H23l-5.28-9.14zm4.14 0L18.72 3H9.43z"/></svg>
-      Abrir álbum en Drive
+      Abrir Ã¡lbum en Drive
     </a>
   </div>
 
-  <div class="ornament"><span class="ornament-glyph">♥</span></div>
+  <div class="ornament"><span class="ornament-glyph">â¥</span></div>
 
   <!-- RSVP -->
   <div class="rsvp-wrap fade-in">
-    <p class="section-tag">confirmación</p>
-    <h2 class="section-title">¿Nos acompañás?</h2>
-    <p class="rsvp-deadline">Confirmá antes del <strong>25 de julio</strong></p>
+    <p class="section-tag">confirmaciÃ³n</p>
+    <h2 class="section-title">Â¿Nos acompaÃ±Ã¡s?</h2>
+    <p class="rsvp-deadline">ConfirmÃ¡ antes del <strong>25 de julio</strong></p>
     <form id="rsvpForm">
       <div class="form-row">
         <input type="text" id="nombre" placeholder="Tu nombre completo" required>
       </div>
       <div class="form-row two-col">
         <select id="asistencia" required>
-          <option value="" disabled selected>¿Venís?</option>
-          <option value="si">Sí, con gusto 🥂</option>
-          <option value="no">No puedo ir 😔</option>
+          <option value="" disabled selected>Â¿VenÃ­s?</option>
+          <option value="si">SÃ­, con gusto ð¥</option>
+          <option value="no">No puedo ir ð</option>
         </select>
         <select id="menu">
-          <option value="" disabled selected>Menú</option>
+          <option value="" disabled selected>MenÃº</option>
           <option value="carne">Carne</option>
           <option value="veggie">Vegetariano</option>
           <option value="vegan">Vegano</option>
@@ -379,21 +385,21 @@
       <button type="submit" class="btn-rsvp">Confirmar asistencia</button>
     </form>
     <div class="rsvp-confirm" id="rsvpConfirm">
-      <p>¡Gracias! Los esperamos con mucho amor ♥</p>
-      <span>Nos vemos el 7 de agosto — va a ser una noche memorable.</span>
+      <p>Â¡Gracias! Los esperamos con mucho amor â¥</p>
+      <span>Nos vemos el 7 de agosto â va a ser una noche memorable.</span>
     </div>
   </div>
 
-  <div class="ornament"><span class="ornament-glyph">♥</span></div>
+  <div class="ornament"><span class="ornament-glyph">â¥</span></div>
 
   <!-- FOOTER -->
   <div class="footer fade-in">
-    <p class="footer-names">Ana & Martín</p>
+    <p class="footer-names">Ana & MartÃ­n</p>
     <p class="footer-msg">
-      Veinte años son muchos y pocos a la vez.<br>
+      Veinte aÃ±os son muchos y pocos a la vez.<br>
       Gracias por ser parte de esta historia.
     </p>
-    <p class="made-by" style="margin-top:36px;">Invitación digital por <a href="#">Sellomail · Presencia Digital</a></p>
+    <p class="made-by" style="margin-top:36px;">InvitaciÃ³n digital por <a href="#">Sellomail Â· Presencia Digital</a></p>
   </div>
 
 </div>
