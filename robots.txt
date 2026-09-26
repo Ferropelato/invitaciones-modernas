@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /confirmados/
+
+Sitemap: https://invitaciones.sellomail.com/sitemap.xml

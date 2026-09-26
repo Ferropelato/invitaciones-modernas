@@ -1,0 +1,47 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
+    {
+      "source": "/confirmados/:evento",
+      "destination": "https://puente.sellomail.com/rsvp/:evento"
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/templates/boda",
+      "destination": "/boda",
+      "permanent": true
+    },
+    {
+      "source": "/templates/cumple-infantil",
+      "destination": "/cumple",
+      "permanent": true
+    },
+    {
+      "source": "/templates/aniversario",
+      "destination": "/aniversario",
+      "permanent": true
+    },
+    {
+      "source": "/templates/joda",
+      "destination": "/fiesta",
+      "permanent": true
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        }
+      ]
+    }
+  ]
+}
